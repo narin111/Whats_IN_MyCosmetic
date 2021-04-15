@@ -17,7 +17,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         buildTypes.each {
-           it.buildConfigField 'String', 'API_KEY', ApiKey
+           //it.buildConfigField 'String', 'API_KEY', ApiKey
+            it.buildConfigField ('String', 'API_KEY',  '\"AIzaSyAaNh43SUU6u2kvOG-0eqwYMSBvFZFyweg\"');
         }
     }
     compileOptions {
@@ -34,4 +35,8 @@ dependencies {
     compile 'com.google.api-client:google-api-client-android:1.23.0' exclude module: 'httpclient'
     compile 'com.google.http-client:google-http-client-gson:1.23.0' exclude module: 'httpclient'
     compile 'com.google.apis:google-api-services-vision:v1-rev369-1.23.0'
+    //api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+
+
 }

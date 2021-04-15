@@ -340,6 +340,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             message  = "nothing";
         }
+        /////
+        Log.v("출력 ", message);
+        message = message.replace(", ", ",");
+        message = message.replace("\n", "");
+        String ingredient[] = message.split(",");
+        for(int i=0;i<ingredient.length; i++){
+            Log.v("단어자르기", ingredient[i]);
+        }
+        /////
         return message;
     }
     /////////////////////////////////
