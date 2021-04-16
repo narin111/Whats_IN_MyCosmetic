@@ -33,6 +33,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"/>
+
+            <Button
+                android:id="@+id/buttonDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DB조회" />
+
+            <TextView
+                android:id="@+id/textViewDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 />//android:text=""
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

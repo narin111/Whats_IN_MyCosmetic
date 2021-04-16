@@ -17,7 +17,12 @@
 package com.google.sample.cloudvision;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,6 +36,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +62,9 @@ import com.google.sample.cloudvision.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +87,63 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mImageDetails;
     private ImageView mMainImage;
+    TextView textDB;
+    public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
+    public static void setDB(Context ctx) {
+        File folder = new File(ROOT_DIR);
+        if(folder.exists()) {
+        } else {
+            folder.mkdirs();
+        }
+        AssetManager assetManager = ctx.getResources().getAssets();
+        // db파일 이름 적어주기
+        File outfile = new File(ROOT_DIR+"sampleTBL.db");
+        InputStream is = null;
+        FileOutputStream fo = null;
+        long filesize = 0;
+        try {
+            is = assetManager.open("sampleTBL.db", AssetManager.ACCESS_BUFFER);
+            filesize = is.available();
+            if (outfile.length() <= 0) {
+                byte[] tempdata = new byte[(int) filesize];
+                is.read(tempdata);
+                is.close();
+                outfile.createNewFile();
+                fo = new FileOutputStream(outfile);
+                fo.write(tempdata);
+                fo.close();
+            } else {}
+        } catch (IOException e) {
+
+        }
+    }
+
+    public SQLiteDatabase db;
+    public Cursor cursor;
+    ProductDBHelper mHelper;
+    String DBname = "sampleTBL";
+
+    private void ShowDBInfo(String name){
+        setDB(this);
+        mHelper=new ProductDBHelper(this);
+        db =mHelper.getReadableDatabase();
+
+        int numcolumn = 0;
+        String namecolumn= null;
+        String effectcolumn= null;
+
+        String sql = "Select * FROM " + DBname;
+        cursor = db.rawQuery(sql , null);
+
+        while (cursor.moveToNext()) {
+            numcolumn = cursor.getInt(0);
+            namecolumn= cursor.getString(1);
+            effectcolumn = cursor.getString(2);
+            textDB.append(numcolumn +"\n");
+            textDB.append(namecolumn +"\n");
+            textDB.append(effectcolumn +"\n");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
 
         mImageDetails = findViewById(R.id.image_details);
         mMainImage = findViewById(R.id.main_image);
+
+        textDB = findViewById(R.id.textViewDB);
+        Button buttondb = findViewById(R.id.buttonDB);
+        buttondb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //executeQuery();
+                ShowDBInfo(DBname);
+            }
+        });
     }
 
     public void startGalleryChooser() {
