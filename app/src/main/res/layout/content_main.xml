@@ -38,7 +38,7 @@
                 android:id="@+id/buttonDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DB조회" />
+                android:text="성분 조회" />
 
             <TextView
                 android:id="@+id/textViewDB"

@@ -84,10 +84,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int GALLERY_IMAGE_REQUEST = 1;
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
+    public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
 
     private TextView mImageDetails;
     private ImageView mMainImage;
-    TextView textDB;
+    private static TextView textDB;
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
     public static void setDB(Context ctx) {
         File folder = new File(ROOT_DIR);
@@ -128,21 +129,22 @@ public class MainActivity extends AppCompatActivity {
         mHelper=new ProductDBHelper(this);
         db =mHelper.getReadableDatabase();
 
-        int numcolumn = 0;
+        int len=0;//배열들 길이
         String namecolumn= null;
         String effectcolumn= null;
 
-        String sql = "Select * FROM " + DBname;
+        String sql = "Select name, effect FROM " + DBname;
+        String resultNamesql[] = new String[100];
+        String resulteffectsql[] = new String[100];
         cursor = db.rawQuery(sql , null);
-
         while (cursor.moveToNext()) {
-            numcolumn = cursor.getInt(0);
-            namecolumn= cursor.getString(1);
-            effectcolumn = cursor.getString(2);
-            textDB.append(numcolumn +"\n");
-            textDB.append(namecolumn +"\n");
-            textDB.append(effectcolumn +"\n");
-        }
+            namecolumn= cursor.getString(0);
+            effectcolumn = cursor.getString(1);
+            resultNamesql[len] = namecolumn;
+            resulteffectsql[len] = effectcolumn;
+            len++;
+            }
+        check1.getDBIG(resultNamesql, resulteffectsql, len);
     }
 
     @Override
@@ -164,14 +166,14 @@ public class MainActivity extends AppCompatActivity {
 
         mImageDetails = findViewById(R.id.image_details);
         mMainImage = findViewById(R.id.main_image);
-
         textDB = findViewById(R.id.textViewDB);
         Button buttondb = findViewById(R.id.buttonDB);
         buttondb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //executeQuery();
+                //이미지성분이 없을때 체크를 어떻게할지?
                 ShowDBInfo(DBname);
+                check1.IGcheck();
             }
         });
     }
@@ -425,10 +427,60 @@ public class MainActivity extends AppCompatActivity {
             Log.v("단어자르기", ingredient[i]); // 로그로 확인
         }
         /////
+        //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
+        check1.getImageIG(ingredient, ingredient.length);
+        /////
         return message;
     }
     /////////////////////////////////
     //효민
+    public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
+        private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
+        private static String DBIngredeint[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[성분명]
+        private static String DBEffect[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[유해성분,알러지]
+        private static String checkIng[] = new String[100]; //비교결과[성분명]
+        private static String checkEff[] = new String[100]; //비교결과[유해성분,알러지]
+        public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
+        private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
+        private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
+        //1. 사진에서 성분가져온걸 저장하는 함수.
+        public static void getImageIG(String[] imageIG, int IGlength){
+            imageArrLength = IGlength;
+            for(int i=0;i<imageArrLength;i++){
+                imageIngredient[i] = imageIG[i];
+            }
+            for(int i=0;i<imageArrLength;i++) {
+                Log.v("이미지성분", imageIngredient[i]);
+            }
+        }
+        //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
+        public static void getDBIG(String[] dbIG, String[] dbEF, int dblength){
+            dbArrLength = dblength;
+            for(int i=0;i<dbArrLength;i++){
+                DBIngredeint[i] = dbIG[i];
+                DBEffect[i] = dbEF[i];
+            }
+            for(int i=0;i<dbArrLength;i++) {
+                Log.v("데이터베이스 성분, 유해효과", DBIngredeint[i] + ", "+DBEffect[i]);
+            }
+        }
+        //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
+        public static void IGcheck(){
+            for(int i=0;i<imageArrLength;i++) {
+                for (int j = 0; j < dbArrLength; j++) {
+                    if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
+                        checkIng[checkCount] = DBIngredeint[j];
+                        checkEff[checkCount] = DBEffect[j];
+                        checkCount++; //유해성분 개수
+                    }
+                }
+            }
+            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-"+checkEff[i]);
+                textDB.append("결과"+(i+1)+": "+checkIng[i]+"-"+checkEff[i]+"\n");
+            }
+        }
+    }
     /////////////////////////////////
 
 
