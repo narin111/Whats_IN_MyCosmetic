@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
         }
         AssetManager assetManager = ctx.getResources().getAssets();
         // db파일 이름 적어주기
-        File outfile = new File(ROOT_DIR+"sampleTBL.db");
+        File outfile = new File(ROOT_DIR+"harmful.db");
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
         try {
-            is = assetManager.open("sampleTBL.db", AssetManager.ACCESS_BUFFER);
+            is = assetManager.open("harmful.db", AssetManager.ACCESS_BUFFER);
             filesize = is.available();
             if (outfile.length() <= 0) {
                 byte[] tempdata = new byte[(int) filesize];
@@ -122,29 +122,39 @@ public class MainActivity extends AppCompatActivity {
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
-    String DBname = "sampleTBL";
+    String DBname = "Harmful";
 
     private void ShowDBInfo(String name){
+        //Log.v("dbname: ",  name);
         setDB(this);
         mHelper=new ProductDBHelper(this);
         db =mHelper.getReadableDatabase();
 
         int len=0;//배열들 길이
-        String namecolumn= null;
-        String effectcolumn= null;
+        String namecol= null;
+        String seffectcol= null;
+        String rolecol = null;
 
-        String sql = "Select name, effect FROM " + DBname;
-        String resultNamesql[] = new String[100];
-        String resulteffectsql[] = new String[100];
+        String sql = "Select * FROM " +name; // DBname;
+        String resNamesql[] = new String[100];
+        String reseffectsql[] = new String[200];
+        String resrolesql[] = new String[100];
+
         cursor = db.rawQuery(sql , null);
         while (cursor.moveToNext()) {
-            namecolumn= cursor.getString(0);
-            effectcolumn = cursor.getString(1);
-            resultNamesql[len] = namecolumn;
-            resulteffectsql[len] = effectcolumn;
+            namecol= cursor.getString(0);
+            seffectcol = cursor.getString(1);
+            rolecol = cursor.getString(2);
+            resNamesql[len] = namecol;
+            reseffectsql[len] = seffectcol;
+            resrolesql[len] = rolecol;
             len++;
             }
-        check1.getDBIG(resultNamesql, resulteffectsql, len);
+        //Log.v("first: " , namecol);
+        check1.getDBIG(resNamesql, reseffectsql, resrolesql, len);
+        /*for(int i=0;i<len;i++) {
+            Log.v("showdbinfo", resNamesql[i] + ", "+reseffectsql[i]+ ", "+ resrolesql[i]);
+        }*/
     }
 
     @Override
@@ -171,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
         buttondb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //이미지성분이 없을때 체크를 어떻게할지?
                 ShowDBInfo(DBname);
                 check1.IGcheck();
             }
@@ -436,10 +445,15 @@ public class MainActivity extends AppCompatActivity {
     //효민
     public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
+
         private static String DBIngredeint[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[성분명]
-        private static String DBEffect[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[유해성분,알러지]
+        private static String DBSEffect[] = new String[200]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[유해성분]
+        private static String DBRole[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 성분의 역할[유해성분]
+
         private static String checkIng[] = new String[100]; //비교결과[성분명]
-        private static String checkEff[] = new String[100]; //비교결과[유해성분,알러지]
+        private static String checkEff[] = new String[200]; //비교결과[유해성분]
+        private static String checkRol[] = new String[100]; //비교결과[역할]
+
         public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
@@ -454,14 +468,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
-        public static void getDBIG(String[] dbIG, String[] dbEF, int dblength){
+        //resultNamesql, resultseffectsql, resultrolesql, len
+        public static void getDBIG(String[] dbIG, String[] dbSE, String[] dbRO, int dblength){
+
             dbArrLength = dblength;
             for(int i=0;i<dbArrLength;i++){
                 DBIngredeint[i] = dbIG[i];
-                DBEffect[i] = dbEF[i];
+                DBSEffect[i] = dbSE[i];
+                DBRole[i] = dbRO[i];
             }
             for(int i=0;i<dbArrLength;i++) {
-                Log.v("데이터베이스 성분, 유해효과", DBIngredeint[i] + ", "+DBEffect[i]);
+                Log.v("데이터베이스 출력", DBIngredeint[i] + ", "+DBSEffect[i]+ ", "+DBRole[i]);
             }
         }
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
@@ -470,14 +487,15 @@ public class MainActivity extends AppCompatActivity {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
                         checkIng[checkCount] = DBIngredeint[j];
-                        checkEff[checkCount] = DBEffect[j];
+                        checkEff[checkCount] = DBSEffect[j];
+                        checkRol[checkCount] = DBRole[j];
                         checkCount++; //유해성분 개수
                     }
                 }
             }
             for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-"+checkEff[i]);
-                textDB.append("결과"+(i+1)+": "+checkIng[i]+"-"+checkEff[i]+"\n");
+                Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
+                textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
             }
         }
     }

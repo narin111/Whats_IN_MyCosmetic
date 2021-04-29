@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class ProductDBHelper extends SQLiteOpenHelper {  //새로 생성한 adapter 속성은 SQLiteOpenHelper이다.
     public ProductDBHelper(Context context) {
-        super(context, "sampleTBL.db", null, 1);    // db명과 버전만 정의 한다.
+        super(context, "harmful.db", null, 1);    // db명과 버전만 정의 한다.
         // TODO Auto-generated constructor stub
     }
 
