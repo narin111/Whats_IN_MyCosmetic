@@ -44,7 +44,31 @@
                 android:id="@+id/textViewDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />//android:text=""
+                 />
+
+            <Button
+                android:id="@+id/buttonoil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="지성" />
+
+            <Button
+                android:id="@+id/buttondry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="건성" />
+
+            <Button
+                android:id="@+id/buttonsens"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="민감성" />
+
+            <TextView
+                android:id="@+id/textskintype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />//android:text=""
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

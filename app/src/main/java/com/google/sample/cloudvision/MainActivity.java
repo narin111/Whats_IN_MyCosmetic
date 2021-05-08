@@ -503,6 +503,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     /////////////////////////////////
-    //나린
+    //나린 //안드로이드 오류해결 확인
     ////////////////////////////////
 }
