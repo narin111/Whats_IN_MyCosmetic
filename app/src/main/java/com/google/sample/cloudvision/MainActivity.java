@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int CAMERA_IMAGE_REQUEST = 3;
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
     public static SkinTypeDBcheck check2;/////////////
+    public static SkinTypeDBcheck check3;
 
     private TextView mImageDetails;
     private ImageView mMainImage;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         AssetManager assetManager = ctx.getResources().getAssets();
 
         // db파일 이름 적어주기
-        File outfile1 = new File(ROOT_DIR+"forthisType.db"); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile1 = new File(ROOT_DIR+"forthisType.db");
         InputStream is1 = null;
         FileOutputStream fo1 = null;
         long filesize1 = 0;
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        File outfile2 = new File(ROOT_DIR+"TypeCareful.db"); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile2 = new File(ROOT_DIR+"TypeCareful.db");
         InputStream is2 = null;
         FileOutputStream fo2 = null;
         long filesize2 = 0;
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     public Cursor cursor;
     ProductDBHelper mHelper;
     String DBname = "Harmful";
-    String DBnameREC = "rec_Type";
+    String DBnameREC = "forthisType";
     String DBnameCARE = "Typecareful";
 
     String fileDBname = "harmful.db";
@@ -295,10 +296,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //ShowDBInfo_Type(디비이름, 추천또는주의);
-                //ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                //check2.IGcheck_Type("지성(여드름) 피부", "추천");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("지성(여드름) 피부", "추천");
                 ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check2.IGcheck_Type("지성(여드름) 피부", "주의");
+                check3.IGcheck_Type("지성(여드름) 피부", "주의");
 
             }
         });
@@ -306,20 +307,20 @@ public class MainActivity extends AppCompatActivity {
         buttontypedry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                //check2.IGcheck_Type("건성(노화) 피부", "추천");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("건성(노화) 피부", "추천");
                 ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check2.IGcheck_Type("건성(노화) 피부", "주의");
+                check3.IGcheck_Type("건성(노화) 피부", "주의");
             }
         });
         Button buttontypesens = findViewById(R.id.buttonsens);
         buttontypesens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                //check2.IGcheck_Type("민감성 피부", "추천");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("민감성 피부", "추천");
                 ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check2.IGcheck_Type("민감성 피부", "주의");
+                check3.IGcheck_Type("민감성 피부", "주의");
             }
         });
 
@@ -693,27 +694,25 @@ public class MainActivity extends AppCompatActivity {
             Log.v("타입파라미터 확인", skintype);
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
-                    Log.v("디비전체출력: ", DBType[i]);
+                    //Log.v("디비전체출력: ", DBType[i]);
                     if(skintype.equals(DBType[i])) Log.v("타입일치 확인 if: ", DBType[j] + skintype);
                     //if (imageIngredient[i].equals(DBIngredient[j]) && skintype.equals(DBType[i])) { //이미지, DB성분명 비교해서 문자열 배열에 저장
-                    if (imageIngredient[i].equals(DBIngredient[j])) {
+                    //if (imageIngredient[i].equals(DBIngredient[j])) {
+                    if(skintype.equals(DBType[j])){
                         Log.v("출력출력111111: ", imageIngredient[i]+DBType[j]);
-                        if(skintype.equals(DBType[j])){
+                        //if(skintype.equals(DBType[j])){
+                        if (imageIngredient[i].equals(DBIngredient[j])) {
                             Log.v("출력출력출력: ", imageIngredient[i]);
-                            //Log.v("이프문 확인 출력:", DBType[i]);
                             checkIng[checkCount] = DBIngredient[j];
                             checkCount++; //유해성분 개수
                         }
 
-                        //checkEff[checkCount] = DBSEffect[j];
-                        //checkRol[checkCount] = DBRole[j];
-                        //Log.v("타입일치 확인: ", checkIng[checkCount-1]);
                     }
                 }
             }
            
             if(RECorCARE=="추천"){
-                textskintype.append("결과추천");
+                textskintype.append("결과추천\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
@@ -721,7 +720,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if(RECorCARE=="주의"){
-                textskintype.append("결과주의");
+                textskintype.append("\n결과주의\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
                     textskintype.append(checkIng[i]);
