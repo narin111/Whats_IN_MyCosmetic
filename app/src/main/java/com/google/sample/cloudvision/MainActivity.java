@@ -718,7 +718,7 @@ public class MainActivity extends AppCompatActivity {
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
                     textskintype.append(checkIng[i]);
                 }
-                           }
+            }
             if(RECorCARE=="주의"){
                 textskintype.append("\n결과주의\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
