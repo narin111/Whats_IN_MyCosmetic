@@ -23,6 +23,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_gallery" />
+
     <FrameLayout
         android:id="@id/bottom_navigation"
         android:layout_width="match_parent"
