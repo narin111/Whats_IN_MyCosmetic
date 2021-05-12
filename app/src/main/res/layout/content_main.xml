@@ -68,7 +68,11 @@
                 android:id="@+id/textskintype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />//android:text=""
+                android:text="TextView" />
+
+
         </LinearLayout>
     </ScrollView>
+
+
 </RelativeLayout>
