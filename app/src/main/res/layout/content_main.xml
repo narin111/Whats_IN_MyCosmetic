@@ -68,7 +68,37 @@
                 android:id="@+id/textskintype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />//android:text=""
+                android:text="TextView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextAllergy"
+                    android:layout_width="266dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/buttonAC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="알러지 추가" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonAget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="알러지 조회" />
+
+            <TextView
+                android:id="@+id/textViewAl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />//android:text=""
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

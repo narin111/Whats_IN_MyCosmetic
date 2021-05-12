@@ -17,6 +17,7 @@
 package com.google.sample.cloudvision;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -38,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -176,6 +178,35 @@ public class MainActivity extends AppCompatActivity {
     }
     ////
 
+    public static void setDB_All(Context ctx) {
+        File folder = new File(ROOT_DIR);
+        if(folder.exists()) {
+        } else {
+            folder.mkdirs();
+        }
+        AssetManager assetManager = ctx.getResources().getAssets();
+        // db파일 이름 적어주기
+        File outfileA = new File(ROOT_DIR+"allergy.db"); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        InputStream isA = null;
+        FileOutputStream foA = null;
+        long filesizeA = 0;
+        try {
+            isA = assetManager.open("allergy.db", AssetManager.ACCESS_BUFFER);
+            filesizeA = isA.available();
+            if (outfileA.length() <= 0) {
+                byte[] tempdataA = new byte[(int) filesizeA];
+                isA.read(tempdataA);
+                isA.close();
+                outfileA.createNewFile();
+                foA = new FileOutputStream(outfileA);
+                foA.write(tempdataA);
+                foA.close();
+            } else {}
+        } catch (IOException e) {
+            Log.v("알러지 setdb 오류: ","오류");
+        }
+        Log.v("알러지 setdb 함수 실행끝: ","성공");
+    }
 
 
 
@@ -185,10 +216,12 @@ public class MainActivity extends AppCompatActivity {
     String DBname = "Harmful";
     String DBnameREC = "forthisType";
     String DBnameCARE = "Typecareful";
+    String DBnameAll = "Allergy";
 
     String fileDBname = "harmful.db";
     String fileDBname_REC = "forthisType.db";
     String fileDBname_CARE= "TypeCareful.db";
+    String fileDBname_All = "allergy.db";
 
     private void ShowDBInfo(String name, String fileDB){
         //Log.v("dbname: ",  name);
@@ -261,6 +294,29 @@ public class MainActivity extends AppCompatActivity {
     }
     //////////////////
     ////
+
+    /*
+    public SQLiteDatabase db;
+    public Cursor cursor;
+    ProductDBHelper mHelper;
+    String DBnameAll = "Allergy";
+    String fileDBname_All = "allergy.db";
+     */
+    private void InsertDBAllergy(String name, String fileDB,String userAll){
+        setDB_All(this);
+        mHelper=new ProductDBHelper(this, fileDB);
+        db =mHelper.getWritableDatabase();
+        Log.v("알러지 Helper ",setAllergy);
+        ContentValues values = new ContentValues();
+        values.put("allergyName", setAllergy);
+        db.insert(name, null, values);
+        Log.v("알러지 db에 넣음: ",userAll);
+    }
+
+    EditText edittextA; //알러지 받아오는 edittext
+    TextView textviewA; //알러지 조회내용 출력
+    String setAllergy; //알러지 담아오는 변수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -328,6 +384,27 @@ public class MainActivity extends AppCompatActivity {
         //button은 세개 지성 건성 민감성
 
         /////
+        edittextA = findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
+        textviewA = findViewById(R.id.textViewAl); //알러지 조회내용 출력
+        Button buttonAcre = findViewById(R.id.buttonAC); //알러지 추가하는
+        buttonAcre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAllergy = edittextA.getText().toString(); //알러지 이름 가져옴
+                Log.v("알러지 가져옴",setAllergy);
+                //알러지를 db에 추가함.
+                InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
+            }
+        });
+        Button buttonAout = findViewById(R.id.buttonAget); //알러지 추가하는
+        buttonAout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //알러지db내용 출력
+                //이미지 성분과 비교. allergycheck클래스만들기
+
+            }
+        });
     }
 
     public void startGalleryChooser() {
