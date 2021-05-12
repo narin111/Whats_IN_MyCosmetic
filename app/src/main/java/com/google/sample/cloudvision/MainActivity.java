@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
+    public static allergyDBcheck checkall;
 
     private TextView mImageDetails;
     private ImageView mMainImage;
     private static TextView textDB;
     private static TextView textskintype;///////
+    private static TextView textviewA;
 
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
     public static void setDB(Context ctx) {
@@ -323,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
             len++;
         }
 
-        //check1.getDBIG(resNamesql, reseffectsql, resrolesql, len);
+        checkall.getDBIGall(nameAsql, len);
         for(int i=0;i<len;i++) {
             Log.v("알러지 showdb", nameAsql[i]);
         }
@@ -341,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     EditText edittextA; //알러지 받아오는 edittext
-    TextView textviewA; //알러지 조회내용 출력
     String setAllergy; //알러지 담아오는 변수
 
     @Override
@@ -412,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
 
         /////
         edittextA = findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
-        textviewA = findViewById(R.id.textViewAl); //알러지 조회내용 출력
         Button buttonAcre = findViewById(R.id.buttonAC); //알러지 추가하는
         buttonAcre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
                 InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
             }
         });
+        textviewA= findViewById(R.id.textViewAl); //알러지 조회내용 출력
         Button buttonAout = findViewById(R.id.buttonAget); //알러지 추가하는
         buttonAout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -432,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
                 ShowDB_Allergy(DBnameAll, fileDBname_All);
                 Log.v("알러지 shodb끝남버튼:","성공");
                 //이미지 성분과 비교. allergycheck클래스만들기
-
+                checkall.IGcheckall();
             }
         });
     }
@@ -689,6 +690,7 @@ public class MainActivity extends AppCompatActivity {
         //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
+        checkall.getImageIGall(ingredient, ingredient.length);
         /////
         return message;
     }
@@ -751,7 +753,52 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     /////////////////////////////////
+    public static class allergyDBcheck{ //이미지 성분과 알러지 데이터베이스 성분들 비교하기.
+        private static String imageIng[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
+        private static String DBAllergy[] = new String[100]; //알러지 배열.[성분명]
+        private static String checkAll[] = new String[100]; //비교결과[알러지명]
+
+        public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
+        private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
+        private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
+        //1. 사진에서 성분가져온걸 저장하는 함수.
+        public static void getImageIGall(String[] imageIG, int IGlength){
+            imageArrLength = IGlength;
+            for(int i=0;i<imageArrLength;i++){
+                imageIng[i] = imageIG[i];
+            }
+            for(int i=0;i<imageArrLength;i++) {
+                Log.v("알러지-이미지성분Class", imageIng[i]);
+            }
+        }
+        //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
+        public static void getDBIGall(String[] dbIG, int dblength){
+            dbArrLength = dblength;
+            for(int i=0;i<dbArrLength;i++){
+                DBAllergy[i] = dbIG[i];
+            }
+            for(int i=0;i<dbArrLength;i++) {
+                Log.v("알러지-데이터베이스 출력Class", DBAllergy[i]);
+            }
+        }
+        //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
+        public static void IGcheckall(){
+            for(int i=0;i<imageArrLength;i++) {
+                for (int j = 0; j < dbArrLength; j++) {
+                    if (imageIng[i].equals(DBAllergy[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
+                        checkAll[checkCount] = DBAllergy[j];
+                        checkCount++; //유해성분 개수
+                    }
+                }
+            }
+            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                Log.v("알러지 비교결과Class", "결과"+i+": "+checkAll[i]);
+                textviewA.append("결과"+(i+1)+": "+checkAll[i]+" \n");
+            }
+        }
+    }
+    //////
 
     /////////////////////////////////
     //나린 //안드로이드 오류해결 확인
