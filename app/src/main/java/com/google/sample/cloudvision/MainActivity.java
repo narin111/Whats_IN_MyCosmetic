@@ -302,7 +302,34 @@ public class MainActivity extends AppCompatActivity {
     String DBnameAll = "Allergy";
     String fileDBname_All = "allergy.db";
      */
-    private void InsertDBAllergy(String name, String fileDB,String userAll){
+    private void ShowDB_Allergy(String name, String fileDB){
+
+        Log.v("dbname: ",  name);
+        Log.v("디비파일 이름 확인", fileDB);
+        setDB_All(this);
+        mHelper=new ProductDBHelper(this, fileDB);
+        db =mHelper.getReadableDatabase();
+
+        int len=0;//배열들 길이
+        String nameAcol= null;
+
+        String sql = "Select * FROM " +name; // DBname;
+        String nameAsql[] = new String[100];
+
+        cursor = db.rawQuery(sql , null);
+        while (cursor.moveToNext()) {
+            nameAcol= cursor.getString(0);
+            nameAsql[len] = nameAcol;
+            len++;
+        }
+
+        //check1.getDBIG(resNamesql, reseffectsql, resrolesql, len);
+        for(int i=0;i<len;i++) {
+            Log.v("알러지 showdb", nameAsql[i]);
+        }
+    }
+
+        private void InsertDBAllergy(String name, String fileDB,String userAll){
         setDB_All(this);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getWritableDatabase();
@@ -310,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("allergyName", setAllergy);
         db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ",userAll);
+        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
     }
 
     EditText edittextA; //알러지 받아오는 edittext
@@ -401,6 +428,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //알러지db내용 출력
+                Log.v("알러지 shodb시작버튼:","성공");
+                ShowDB_Allergy(DBnameAll, fileDBname_All);
+                Log.v("알러지 shodb끝남버튼:","성공");
                 //이미지 성분과 비교. allergycheck클래스만들기
 
             }
