@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     private static TextView textviewA;
 
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
-    public static void setDB(Context ctx) {
+    public static void setDB(Context ctx, String fileDB) {
         File folder = new File(ROOT_DIR);
         if(folder.exists()) {
         } else {
@@ -106,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
         }
         AssetManager assetManager = ctx.getResources().getAssets();
         // db파일 이름 적어주기
-        File outfile = new File(ROOT_DIR+"harmful.db"); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile = new File(ROOT_DIR+fileDB); //// 이부분 모르겠다. helper에도 이름 추가하기?
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
         try {
-            is = assetManager.open("harmful.db", AssetManager.ACCESS_BUFFER);
+            is = assetManager.open(fileDB, AssetManager.ACCESS_BUFFER);
             filesize = is.available();
             if (outfile.length() <= 0) {
                 byte[] tempdata = new byte[(int) filesize];
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void ShowDBInfo(String name, String fileDB){
         //Log.v("dbname: ",  name);
-        setDB(this);
+        setDB(this, fileDBname);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getReadableDatabase();
 
