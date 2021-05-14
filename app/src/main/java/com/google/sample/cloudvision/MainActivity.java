@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /////
-    public static void setDB_Type(Context ctx) {
+ /*   public static void setDB_Type(Context ctx) {
         File folder2 = new File(ROOT_DIR);
         if(folder2.exists()) {
         } else {
@@ -177,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
+    }*/
     ////
-
+/*
     public static void setDB_All(Context ctx) {
         File folder = new File(ROOT_DIR);
         if(folder.exists()) {
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.v("알러지 setdb 함수 실행끝: ","성공");
     }
-
+*/
 
 
     public SQLiteDatabase db;
@@ -225,9 +225,10 @@ public class MainActivity extends AppCompatActivity {
     String fileDBname_CARE= "TypeCareful.db";
     String fileDBname_All = "allergy.db";
 
+
     private void ShowDBInfo(String name, String fileDB){
         //Log.v("dbname: ",  name);
-        setDB(this, fileDBname);
+        setDB(this, fileDB);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getReadableDatabase();
 
@@ -253,16 +254,18 @@ public class MainActivity extends AppCompatActivity {
             }
         //Log.v("first: " , namecol);
         check1.getDBIG(resNamesql, reseffectsql, resrolesql, len);
-        /*for(int i=0;i<len;i++) {
-            Log.v("showdbinfo", resNamesql[i] + ", "+reseffectsql[i]+ ", "+ resrolesql[i]);
-        }*/
+        //for(int i=0;i<len;i++) {
+        //    Log.v("showdbinfo", resNamesql[i] + ", "+reseffectsql[i]+ ", "+ resrolesql[i]);
+        //}
     }
+
     /////
+
     private void ShowDBInfo_Type(String name, String fileDB){
 
         Log.v("dbname: ",  name);
         Log.v("디비파일 이름 확인", fileDB);
-        setDB_Type(this);
+        setDB(this, fileDB);//setDB_Type(this);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getReadableDatabase();
 
@@ -297,18 +300,11 @@ public class MainActivity extends AppCompatActivity {
     //////////////////
     ////
 
-    /*
-    public SQLiteDatabase db;
-    public Cursor cursor;
-    ProductDBHelper mHelper;
-    String DBnameAll = "Allergy";
-    String fileDBname_All = "allergy.db";
-     */
     private void ShowDB_Allergy(String name, String fileDB){
 
         Log.v("dbname: ",  name);
         Log.v("디비파일 이름 확인", fileDB);
-        setDB_All(this);
+        setDB(this,fileDB);//setDB_All(this);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getReadableDatabase();
 
@@ -331,8 +327,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-        private void InsertDBAllergy(String name, String fileDB,String userAll){
-        setDB_All(this);
+    private void InsertDBAllergy(String name, String fileDB,String userAll){
+        setDB(this, fileDB);
         mHelper=new ProductDBHelper(this, fileDB);
         db =mHelper.getWritableDatabase();
         Log.v("알러지 Helper ",setAllergy);
