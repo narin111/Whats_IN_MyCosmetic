@@ -267,7 +267,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        /////
+        Thread thread = new Thread() {
+            public void run() {
+                ApiExamSearchShop api = new ApiExamSearchShop();
+                api.main();
+            }
+        };
+        thread.start();
+        /////
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
