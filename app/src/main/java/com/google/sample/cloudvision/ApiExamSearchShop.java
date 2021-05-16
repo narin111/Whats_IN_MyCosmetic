@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiExamSearchShop extends Thread{
+    public static StringBuilder cl;//추가
+
     public static void main() {
         String clientId = "OSj0lA9NwIVPu55cGHBj"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "tZQxrVxI8k"; //애플리케이션 클라이언트 시크릿값"
@@ -27,10 +29,21 @@ public class ApiExamSearchShop extends Thread{
         String text = null;
         try {
             text = URLEncoder.encode("알로에 화장품", "UTF-8");
+            String apiURL = "https://openapi.naver.com/v1/search/shop?query=" + text;    // json 결과
+            //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+
+            Map<String, String> requestHeaders = new HashMap<>();
+            requestHeaders.put("X-Naver-Client-Id", clientId);
+            requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+            String responseBody = get(apiURL,requestHeaders);
+
+            System.out.println(responseBody);
+
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
+        /*
         String apiURL = "https://openapi.naver.com/v1/search/shop?query=" + text;    // json 결과
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 
@@ -40,6 +53,7 @@ public class ApiExamSearchShop extends Thread{
         String responseBody = get(apiURL,requestHeaders);
 
         System.out.println(responseBody);
+         */
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
