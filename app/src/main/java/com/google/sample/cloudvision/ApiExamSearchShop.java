@@ -26,7 +26,7 @@ public class ApiExamSearchShop extends Thread{
 
         String text = null;
         try {
-            text = URLEncoder.encode("알로에", "UTF-8");
+            text = URLEncoder.encode("알로에 화장품", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
@@ -82,10 +82,12 @@ public class ApiExamSearchShop extends Thread{
             StringBuilder responseBody = new StringBuilder();
 
             String line;
+
             while ((line = lineReader.readLine()) != null) {
                 responseBody.append(line);
             }
 
+            Log.v("출력: ", responseBody.toString());
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
