@@ -87,26 +87,23 @@ public class ApiExamSearchShop extends Thread{
                 responseBody.append(line).append("\n");
             }
 
-            Log.v("출력: ", responseBody.toString());
+            //Log.v("출력: ", responseBody.toString());
 
-            String data = responseBody.toString();
+            String data = responseBody.toString(); // 전체 출력내용을 단순히 배열에 저장함. <b>같은 문자들도 함께 됨.
             Log.v("출력 data: ", data);
 
-            /*
             String[] array;
             array = data.split("\"");
             String[] title=new String[100];
             int k=0;
-            for(int i=0;i<title.length;i++){
+            for(int i=0;i<array.length;i++){
                 if(array[i].equals("title")){
-                    title[k] = array[i];
-                    k++;
+                    title[k] = array[i+2];
                     Log.v("출력 data -for문: ",title[k]);
+                    k++;
                 }
-            }*/
+            }
 
-
-            
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
