@@ -385,7 +385,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.btndb:
+            case R.id.btndb: //에러
                 Log.v("디비버튼", "눌림");
                 break;
 
