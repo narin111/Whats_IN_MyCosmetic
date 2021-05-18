@@ -31,6 +31,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -354,8 +356,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar); //2021.05.18 오전 12:41수정부분. 일단 run
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);//2021.05.18 오후 수정부분. 일단 run
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(
+                this,drawer, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        fragment1 = new Fragment1();
+        fragment2 = new Fragment2();
+        fragment3 = new Fragment3();
+
+        //getSupportFragmentManager().beginTransaction().add(R.id.container,fragment1).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment1).commit();
+
         /////
         Thread thread = new Thread() {
             public void run() {
@@ -633,13 +652,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(position==0){
             curFragment=fragment1;
-            toolbar.setTitle("첫번째 화면");
+            //toolbar.setTitle("첫번째 화면");
         }else if(position==1){
             curFragment=fragment2;
-            toolbar.setTitle("두번째 화면");
+            //toolbar.setTitle("두번째 화면");
         }else if(position==2){
             curFragment=fragment3;
-            toolbar.setTitle("세번째 화면");
+            //toolbar.setTitle("세번째 화면");
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container,curFragment).commit(); //container는 어디지?
 
