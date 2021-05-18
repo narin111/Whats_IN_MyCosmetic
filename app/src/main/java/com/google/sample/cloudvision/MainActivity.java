@@ -373,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment3 = new Fragment3();
 
         //getSupportFragmentManager().beginTransaction().add(R.id.container,fragment1).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment1).commit();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment1).commit();
 
         /////
         Thread thread = new Thread() {
@@ -652,15 +652,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(position==0){
             curFragment=fragment1;
-            //toolbar.setTitle("첫번째 화면");
         }else if(position==1){
             curFragment=fragment2;
-            //toolbar.setTitle("두번째 화면");
         }else if(position==2){
             curFragment=fragment3;
-            //toolbar.setTitle("세번째 화면");
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,curFragment).commit(); //container는 어디지?
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container,curFragment).commit(); //container는 어디지?
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,curFragment).commit();
 
     }
 
