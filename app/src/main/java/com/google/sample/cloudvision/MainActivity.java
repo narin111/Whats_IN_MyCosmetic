@@ -35,7 +35,12 @@ import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
@@ -68,7 +74,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
     private static final String CLOUD_VISION_API_KEY = BuildConfig.API_KEY;
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
@@ -336,10 +342,18 @@ public class MainActivity extends AppCompatActivity {
     EditText edittextA; //알러지 받아오는 edittext
     String setAllergy; //알러지 담아오는 변수
 
+    Fragment1 fragment1;
+    Fragment2 fragment2;
+    Fragment3 fragment3;
+
+    DrawerLayout drawer;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar); //2021.05.18 오전 12:41수정부분. 일단 run
         setSupportActionBar(toolbar);
         /////
@@ -584,6 +598,51 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "created Cloud Vision request object, sending request");
 
         return annotateRequest;
+    }
+    @Override
+    public void onBackPressed(){ //네비게이션drawer 관련 함수
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuitem) { //네비게이션drawer관련 함수
+        int id= menuitem.getItemId();
+        if(id==R.id.menu1){
+            Toast.makeText(this,"첫번째 선택됨",Toast.LENGTH_LONG).show();
+            onFragmentSelected(0,null);
+        }else if(id==R.id.menu2){
+            Toast.makeText(this,"두번째 선택됨",Toast.LENGTH_LONG).show();
+            onFragmentSelected(1,null);
+        }
+        else if(id==R.id.menu3){
+            Toast.makeText(this,"세번째 선택됨",Toast.LENGTH_LONG).show();
+            onFragmentSelected(2,null);
+        }
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    //@Override
+    public void onFragmentSelected(int position, Bundle bundle){ //네비게이션drawer관련 함수
+        Fragment curFragment=null;
+
+        if(position==0){
+            curFragment=fragment1;
+            toolbar.setTitle("첫번째 화면");
+        }else if(position==1){
+            curFragment=fragment2;
+            toolbar.setTitle("두번째 화면");
+        }else if(position==2){
+            curFragment=fragment3;
+            toolbar.setTitle("세번째 화면");
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,curFragment).commit(); //container는 어디지?
+
     }
 
     private static class LableDetectionTask extends AsyncTask<Object, Void, String> {
