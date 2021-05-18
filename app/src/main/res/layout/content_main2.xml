@@ -9,8 +9,8 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context="com.google.sample.cloudvision.MainActivity"
-                tools:showIn="@layout/activity_main">
+                tools:context="com.google.sample.cloudvision.Fragment1"
+                tools:showIn="@layout/fragment1">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+<!--
             <TextView
                 android:id="@+id/image_details"
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
-<!--
+-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -98,7 +98,7 @@
             <TextView
                 android:id="@+id/textViewAl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" /> -->
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
