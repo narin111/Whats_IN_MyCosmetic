@@ -131,21 +131,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
 
-
-
-
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
     String DBname = "Harmful";
     String DBnameREC = "forthisType";
     String DBnameCARE = "Typecareful";
-    //String DBnameAll = "Allergy";
 
     String fileDBname = "harmful.db";
     String fileDBname_REC = "forthisType.db";
     String fileDBname_CARE= "TypeCareful.db";
-    //String fileDBname_All = "allergy.db";
 
 
     private void ShowDBInfo(String name, String fileDB){
@@ -304,9 +299,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             builder.create().show();
         });*/
 
-        /*mImageDetails = view1.findViewById(R.id.image_details);
+        mImageDetails = view1.findViewById(R.id.image_details);
         mMainImage = view1.findViewById(R.id.main_image);
         textDB = view1.findViewById(R.id.textViewDB);
+        textskintype = view1.findViewById(R.id.textskintype);
+        /*
         Button buttondb = view1.findViewById(R.id.buttonDB);
         buttondb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -382,12 +379,36 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //return inflater.inflate(R.layout.fragment1, container, false);
     }
 
-
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.btndb: //에러
+            case R.id.buttonDB:
                 Log.v("디비버튼", "눌림");
+                ShowDBInfo(DBname, fileDBname);
+                check1.IGcheck();
                 break;
+            case R.id.buttonoil:
+                Log.v("지성버튼", "눌림");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("지성(여드름) 피부", "추천");
+                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
+                check3.IGcheck_Type("지성(여드름) 피부", "주의");
+                break;
+            case R.id.buttondry:
+                Log.v("건성버튼", "눌림");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("건성(노화) 피부", "추천");
+                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
+                check3.IGcheck_Type("건성(노화) 피부", "주의");
+                break;
+            case R.id.buttonsens:
+                Log.v("민감성버튼", "눌림");
+                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
+                check2.IGcheck_Type("민감성 피부", "추천");
+                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
+                check3.IGcheck_Type("민감성 피부", "주의");
+                break;
+            default:
+                Log.v("onclick 에러", "에러");
 
         }
     }
