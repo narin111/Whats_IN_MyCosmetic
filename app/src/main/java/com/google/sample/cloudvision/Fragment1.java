@@ -90,16 +90,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
-   //public static allergyDBcheck checkall;
 
     private TextView mImageDetails;
     private ImageView mMainImage;
     private static TextView textDB;
-    private static TextView textskintype;///////
-    //private static TextView textviewA;
-
-    //View v = inflater.inflate(R.layout.fragment1, container, false);
-
+    private static TextView textskintype;
 
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
     public static void setDB(Fragment1 ctx, String fileDB) {
@@ -203,7 +198,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             resTypesql[len] = typecol;
             resNamesql[len] = namecol;
 
-
             len++;
         }
 
@@ -214,35 +208,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
 
     }
-    //////////////////
-    ////
-
-    /*private void ShowDB_Allergy(String name, String fileDB){
-
-        Log.v("dbname: ",  name);
-        Log.v("디비파일 이름 확인", fileDB);
-        setDB(this,fileDB);//setDB_All(this);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getReadableDatabase();
-
-        int len=0;//배열들 길이
-        String nameAcol= null;
-
-        String sql = "Select * FROM " +name; // DBname;
-        String nameAsql[] = new String[100];
-
-        cursor = db.rawQuery(sql , null);
-        while (cursor.moveToNext()) {
-            nameAcol= cursor.getString(0);
-            nameAsql[len] = nameAcol;
-            len++;
-        }
-
-        checkall.getDBIGall(nameAsql, len);
-        for(int i=0;i<len;i++) {
-            Log.v("알러지 showdb", nameAsql[i]);
-        }
-    }*/
 
     private void InsertDBAllergy(String name, String fileDB,String userAll){
         setDB(this, fileDB);
@@ -283,16 +248,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         btndry.setOnClickListener(this);
         btnoil.setOnClickListener(this);
         btnsens.setOnClickListener(this);
-        //Button btn1 = (Button)view1.findViewById(R.id.buttonDB);
 
         mImageDetails = view1.findViewById(R.id.image_details);
         mMainImage = view1.findViewById(R.id.main_image);
         textDB = view1.findViewById(R.id.textViewDB);
         textskintype = view1.findViewById(R.id.textskintype);
 
-        return view1;
-
-        /*FloatingActionButton fab = view1.findViewById(R.id.fab);
+        FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             //AlertDialog.Builder builder = new AlertDialog.Builder(Fragment1.this);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -301,84 +263,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
                     .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
             builder.create().show();
-        });*/
-
-
-
-        /*
-        Button buttondb = view1.findViewById(R.id.buttonDB);
-        buttondb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowDBInfo(DBname, fileDBname);
-                check1.IGcheck();
-            }
         });
-        /////
-        textskintype = view1.findViewById(R.id.textskintype);
-        Button buttontypeoil = view1.findViewById(R.id.buttonoil);
-        buttontypeoil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //ShowDBInfo_Type(디비이름, 추천또는주의);
-                Log.v("지성", "버튼눌림");
-                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                check2.IGcheck_Type("지성(여드름) 피부", "추천");
-                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check3.IGcheck_Type("지성(여드름) 피부", "주의");
 
-            }
-        });
-        Button buttontypedry = view1.findViewById(R.id.buttondry);
-        buttontypedry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                check2.IGcheck_Type("건성(노화) 피부", "추천");
-                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check3.IGcheck_Type("건성(노화) 피부", "주의");
-            }
-        });
-        Button buttontypesens = view1.findViewById(R.id.buttonsens);
-        buttontypesens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowDBInfo_Type(DBnameREC, fileDBname_REC);
-                check2.IGcheck_Type("민감성 피부", "추천");
-                ShowDBInfo_Type(DBnameCARE, fileDBname_CARE);
-                check3.IGcheck_Type("민감성 피부", "주의");
-            }
-        });*/
-
-        //check2.IGCheck_Type("지성", "추천또는주의"); // 호출형식
-        //button은 세개 지성 건성 민감성
-
-        /////
-        /*edittextA = view1.findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
-        Button buttonAcre = view1.findViewById(R.id.buttonAC); //알러지 추가하는
-        buttonAcre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAllergy = edittextA.getText().toString(); //알러지 이름 가져옴
-                Log.v("알러지 가져옴",setAllergy);
-                //알러지를 db에 추가함.
-                InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
-            }
-        });
-        textviewA= view1.findViewById(R.id.textViewAl); //알러지 조회내용 출력
-        Button buttonAout = view1.findViewById(R.id.buttonAget); //알러지 추가하는
-        buttonAout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //알러지db내용 출력
-                Log.v("알러지 shodb시작버튼:","성공");
-                ShowDB_Allergy(DBnameAll, fileDBname_All);
-                Log.v("알러지 shodb끝남버튼:","성공");
-                //이미지 성분과 비교. allergycheck클래스만들기
-                checkall.IGcheckall();
-            }
-        });*/
-        //return inflater.inflate(R.layout.fragment1, container, false);
+        return view1;
     }
 
     public void onClick(View view){
@@ -633,21 +520,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }
 
-//    private static String convertResponseToString(BatchAnnotateImagesResponse response) {
-//        StringBuilder message = new StringBuilder("I found these things:\n\n");
-//
-//        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
-//        if (labels != null) {
-//            for (EntityAnnotation label : labels) {
-//                message.append(String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription()));
-//                message.append("\n");
-//            }
-//        } else {
-//            message.append("nothing");
-//        }
-//
-//        return message.toString();
-//    }
+
     private static String convertResponseToString(BatchAnnotateImagesResponse response) {
         String message = "I found these things:\n\n";
         List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
@@ -730,53 +603,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             }
         }
     }
-    /////////////////////////////////
-    public static class allergyDBcheck{ //이미지 성분과 알러지 데이터베이스 성분들 비교하기.
-        private static String imageIng[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
-
-        private static String DBAllergy[] = new String[100]; //알러지 배열.[성분명]
-        private static String checkAll[] = new String[100]; //비교결과[알러지명]
-
-        public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
-        private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
-        private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
-        //1. 사진에서 성분가져온걸 저장하는 함수.
-        /*public static void getImageIGall(String[] imageIG, int IGlength){
-            imageArrLength = IGlength;
-            for(int i=0;i<imageArrLength;i++){
-                imageIng[i] = imageIG[i];
-            }
-            for(int i=0;i<imageArrLength;i++) {
-                Log.v("알러지-이미지성분Class", imageIng[i]);
-            }
-        }
-        //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
-        public static void getDBIGall(String[] dbIG, int dblength){
-            dbArrLength = dblength;
-            for(int i=0;i<dbArrLength;i++){
-                DBAllergy[i] = dbIG[i];
-            }
-            for(int i=0;i<dbArrLength;i++) {
-                Log.v("알러지-데이터베이스 출력Class", DBAllergy[i]);
-            }
-        }
-        //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
-        public static void IGcheckall(){
-            for(int i=0;i<imageArrLength;i++) {
-                for (int j = 0; j < dbArrLength; j++) {
-                    if (imageIng[i].equals(DBAllergy[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
-                        checkAll[checkCount] = DBAllergy[j];
-                        checkCount++; //유해성분 개수
-                    }
-                }
-            }
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("알러지 비교결과Class", "결과"+i+": "+checkAll[i]);
-                textviewA.append("결과"+(i+1)+": "+checkAll[i]+" \n");
-            }
-        }*/
-    }
-    //////
 
     /////////////////////////////////
     //나린 //안드로이드 오류해결 확인

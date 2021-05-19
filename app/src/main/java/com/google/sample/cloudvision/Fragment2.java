@@ -39,8 +39,6 @@ import java.io.InputStream;
 
 public class Fragment2 extends Fragment {
 
-
-
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
     public static void setDB(Fragment2 ctx, String fileDB) {
         File folder = new File(ROOT_DIR);
