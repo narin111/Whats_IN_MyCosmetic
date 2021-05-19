@@ -90,7 +90,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
-    public static allergyDBcheck checkall;
+   //public static allergyDBcheck checkall;
 
     private TextView mImageDetails;
     private ImageView mMainImage;
@@ -255,7 +255,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
     }
 
-    EditText edittextA; //알러지 받아오는 edittext
     String setAllergy; //알러지 담아오는 변수
 
     @Override
@@ -286,6 +285,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         btnsens.setOnClickListener(this);
         //Button btn1 = (Button)view1.findViewById(R.id.buttonDB);
 
+        mImageDetails = view1.findViewById(R.id.image_details);
+        mMainImage = view1.findViewById(R.id.main_image);
+        textDB = view1.findViewById(R.id.textViewDB);
+        textskintype = view1.findViewById(R.id.textskintype);
+
         return view1;
 
         /*FloatingActionButton fab = view1.findViewById(R.id.fab);
@@ -299,10 +303,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             builder.create().show();
         });*/
 
-        mImageDetails = view1.findViewById(R.id.image_details);
-        mMainImage = view1.findViewById(R.id.main_image);
-        textDB = view1.findViewById(R.id.textViewDB);
-        textskintype = view1.findViewById(R.id.textskintype);
+
+
         /*
         Button buttondb = view1.findViewById(R.id.buttonDB);
         buttondb.setOnClickListener(new View.OnClickListener() {
@@ -562,11 +564,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         return annotateRequest;
     }
-
-    /*@Override
-    public void onClick(View v) {
-
-    }*/
 
     private static class LableDetectionTask extends AsyncTask<Object, Void, String> {
         private final WeakReference<Fragment1> mActivityWeakReference;
