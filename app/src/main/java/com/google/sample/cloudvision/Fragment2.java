@@ -27,7 +27,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -36,10 +39,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+public class Fragment2 extends Fragment implements View.OnClickListener {
 
-public class Fragment2 extends Fragment {
+    private static final String CLOUD_VISION_API_KEY = BuildConfig.API_KEY;
+    public static final String FILE_NAME = "temp.jpg";
+    private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
+    private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
+    private static final int MAX_LABEL_RESULTS = 10;
+    private static final int MAX_DIMENSION = 1200;
 
+    private static final String TAG = Fragment2.class.getSimpleName();
+    private static final int GALLERY_PERMISSIONS_REQUEST = 0;
+    private static final int GALLERY_IMAGE_REQUEST = 1;
+    public static final int CAMERA_PERMISSIONS_REQUEST = 2;
+    public static final int CAMERA_IMAGE_REQUEST = 3;
+    public static allergyDBcheck checkall;
+
+    private TextView mImageDetails;
+    private ImageView mMainImage;
+    private static TextView textDB;
+    private static TextView textskintype;///////
+    private static TextView textviewA;
+
+    //View v = inflater.inflate(R.layout.fragment1, container, false);
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
+
     public static void setDB(Fragment2 ctx, String fileDB) {
         File folder = new File(ROOT_DIR);
         if(folder.exists()) {
@@ -69,23 +93,38 @@ public class Fragment2 extends Fragment {
         }
     }
 
-
-
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
-    /*String DBname = "Harmful";
-    String DBnameREC = "forthisType";
-    String DBnameCARE = "Typecareful";
     String DBnameAll = "Allergy";
-
-    String fileDBname = "harmful.db";
-    String fileDBname_REC = "forthisType.db";
-    String fileDBname_CARE= "TypeCareful.db";*/
     String fileDBname_All = "allergy.db";
 
+    private void ShowDB_Allergy(String name, String fileDB){
 
+        Log.v("dbname: ",  name);
+        Log.v("디비파일 이름 확인", fileDB);
+        setDB(this,fileDB);//setDB_All(this);
+        mHelper=new ProductDBHelper(getActivity(), fileDB);
+        db =mHelper.getReadableDatabase();
 
+        int len=0;//배열들 길이
+        String nameAcol= null;
+
+        String sql = "Select * FROM " +name; // DBname;
+        String nameAsql[] = new String[100];
+
+        cursor = db.rawQuery(sql , null);
+        while (cursor.moveToNext()) {
+            nameAcol= cursor.getString(0);
+            nameAsql[len] = nameAcol;
+            len++;
+        }
+
+        checkall.getDBIGall(nameAsql, len);
+        for(int i=0;i<len;i++) {
+            Log.v("알러지 showdb", nameAsql[i]);
+        }
+    }
 
     private void InsertDBAllergy(String name, String fileDB,String userAll){
         setDB(this, fileDB);
@@ -101,6 +140,45 @@ public class Fragment2 extends Fragment {
     EditText edittextA; //알러지 받아오는 edittext
     String setAllergy; //알러지 담아오는 변수
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onStart();
+
+        View view2 = inflater.inflate(R.layout.fragment2, container, false);
+
+        edittextA = view2.findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
+        Button buttonAcre = (Button) view2.findViewById(R.id.buttonAC); //알러지 추가하는
+        buttonAcre.setOnClickListener(this);
+
+        textviewA= view2.findViewById(R.id.textViewAl); //알러지 조회내용 출력
+        Button buttonAout = (Button) view2.findViewById(R.id.buttonAget); //알러지 추가하는
+        buttonAout.setOnClickListener(this);
+
+        return view2;
+    }
+
+    public void onClick(View view2){
+        switch(view2.getId()){
+            case R.id.buttonAC:
+                setAllergy = edittextA.getText().toString(); //알러지 이름 가져옴
+                Log.v("알러지 가져옴",setAllergy);
+                //알러지를 db에 추가함.
+                InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
+                break;
+            case R.id.buttonDB: //에러가 뜨는 것같음!20일 오후에 보기.
+                //알러지db내용 출력
+                Log.v("알러지 shodb시작버튼:","성공");
+                ShowDB_Allergy(DBnameAll, fileDBname_All);
+                Log.v("알러지 shodb끝남버튼:","성공");
+                //이미지 성분과 비교. allergycheck클래스만들기
+                checkall.IGcheckall();
+                break;
+            default:
+                Log.v("onclick 에러", "에러");
+        }
+    }
+
     public static class allergyDBcheck{ //이미지 성분과 알러지 데이터베이스 성분들 비교하기.
         private static String imageIng[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
@@ -111,7 +189,7 @@ public class Fragment2 extends Fragment {
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
         //1. 사진에서 성분가져온걸 저장하는 함수.
-        public static void getImageIGall(String[] imageIG, int IGlength){
+        public static void getImageIGall(String[] imageIG, int IGlength){ //Fragment1에서 가져올수 있을지?
             imageArrLength = IGlength;
             for(int i=0;i<imageArrLength;i++){
                 imageIng[i] = imageIG[i];
@@ -121,7 +199,7 @@ public class Fragment2 extends Fragment {
             }
         }
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
-        /*public static void getDBIGall(String[] dbIG, int dblength){
+        public static void getDBIGall(String[] dbIG, int dblength){
             dbArrLength = dblength;
             for(int i=0;i<dbArrLength;i++){
                 DBAllergy[i] = dbIG[i];
@@ -144,26 +222,7 @@ public class Fragment2 extends Fragment {
                 Log.v("알러지 비교결과Class", "결과"+i+": "+checkAll[i]);
                 textviewA.append("결과"+(i+1)+": "+checkAll[i]+" \n");
             }
-        }*/
+        }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onStart(savedInstanceState);
-        super.onStart();
-        //setContentView(R.layout.fragment1);
-        //Toolbar toolbar = getView().findViewById(R.id.toolbar2);
-        //setSupportActionBar(toolbar);
-        /////
-        /*Thread thread = new Thread() { //API 주석
-            public void run() {
-                ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main();
-            }
-        };
-        thread.start();*/
-        /////
-        return inflater.inflate(R.layout.fragment2, container, false);
-    }
-    ////////////////////////////////
 }

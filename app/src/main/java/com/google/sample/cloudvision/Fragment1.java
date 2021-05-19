@@ -72,6 +72,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.google.sample.cloudvision.Fragment2.checkall;
 
 
 public class Fragment1 extends Fragment implements View.OnClickListener {
@@ -224,20 +225,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onStart(savedInstanceState);
+
         super.onStart();
-        //setContentView(R.layout.fragment1);
-        //Toolbar toolbar = view1.findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        /////
-        /*Thread thread = new Thread() { //API주석
-            public void run() {
-                ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main();
-            }
-        };
-        thread.start();*/
-        /////
+
         View view1 = inflater.inflate(R.layout.fragment1, container, false);
         Button btndb = (Button) view1.findViewById(R.id.buttonDB);
         Button btnoil = (Button) view1.findViewById(R.id.buttonoil);
@@ -541,7 +531,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
-        //checkall.getImageIGall(ingredient, ingredient.length);
+        checkall.getImageIGall(ingredient, ingredient.length);
         /////
         return message;
     }
