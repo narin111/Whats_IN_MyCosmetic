@@ -2,6 +2,10 @@ package com.google.sample.cloudvision;
 
 import android.util.Log;
 
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonParser;
+import com.google.api.client.json.JsonToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -31,7 +37,8 @@ public class ApiExamSearchShop extends Thread{
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/shop?query=" + text;    // json 결과
+        //100개 크롤링
+        String apiURL = "https://openapi.naver.com/v1/search/shop?query=" + text +"&display=100&start=1";    // json 결과
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 
         Map<String, String> requestHeaders = new HashMap<>();
@@ -87,24 +94,23 @@ public class ApiExamSearchShop extends Thread{
                 responseBody.append(line).append("\n");
             }
 
-            Log.v("출력: ", responseBody.toString());
+            //Log.v("출력: ", responseBody.toString());
 
-            String data = responseBody.toString();
+            String data = responseBody.toString(); // 전체 출력내용을 단순히 배열에 저장함. <b>같은 문자들도 함께 됨.
             Log.v("출력 data: ", data);
 
-            /*
             String[] array;
             array = data.split("\"");
             String[] title=new String[100];
             int k=0;
-            for(int i=0;i<title.length;i++){
+            for(int i=0;i<array.length;i++){
                 if(array[i].equals("title")){
-                    title[k] = array[i];
+                    title[k] = array[i+2];
+                    title[k] = title[k].replace("<b>", "").replace("</b>",""); // <b>, </b> 없애기
+                    Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
                     k++;
-                    Log.v("출력 data -for문: ",title[k]);
                 }
-            }*/
-
+            }
 
 
             return responseBody.toString();
