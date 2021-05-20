@@ -40,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="성분 조회" />
+                android:text="성분 조회"
+                android:backgroundTint="@color/button" />
 
             <TextView
                 android:id="@+id/textViewDB"
@@ -58,21 +59,24 @@
                     android:layout_width="126dp"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="지성" />
+                    android:text="지성"
+                    android:backgroundTint="@color/button"/>
 
                 <Button
                     android:id="@+id/buttondry"
                     android:layout_width="126dp"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="건성" />
+                    android:text="건성"
+                    android:backgroundTint="@color/button"/>
 
                 <Button
                     android:id="@+id/buttonsens"
                     android:layout_width="126dp"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="민감성" />
+                    android:text="민감성"
+                    android:backgroundTint="@color/button"/>
             </LinearLayout>
 
             <TextView

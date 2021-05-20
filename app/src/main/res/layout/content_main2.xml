@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="알레르기 추가"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp"
+                    android:backgroundTint="@color/button"/>
 
             </LinearLayout>
 
@@ -55,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="화장품 속 알레르기"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:backgroundTint="@color/button"/>
 
             <TextView
                 android:id="@+id/textViewAl"
