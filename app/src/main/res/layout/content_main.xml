@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Use the floating action button to select an image."/>
+                android:textSize="20dp"
+                android:text="화장품의 뒷면 성분부분을 찍어주세요!"/>
 
             <ImageView
                 android:id="@+id/main_image"
@@ -38,6 +39,7 @@
                 android:id="@+id/buttonDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:text="성분 조회" />
 
             <TextView
@@ -46,29 +48,38 @@
                 android:layout_height="wrap_content"
                  />
 
-            <Button
-                android:id="@+id/buttonoil"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="지성" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttondry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="건성" />
+                <Button
+                    android:id="@+id/buttonoil"
+                    android:layout_width="126dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="지성" />
 
-            <Button
-                android:id="@+id/buttonsens"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="민감성" />
+                <Button
+                    android:id="@+id/buttondry"
+                    android:layout_width="126dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="건성" />
+
+                <Button
+                    android:id="@+id/buttonsens"
+                    android:layout_width="126dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="민감성" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textskintype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                />
 
 
 
