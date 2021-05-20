@@ -511,7 +511,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
 
-    private static String convertResponseToString(BatchAnnotateImagesResponse response) {
+    public static String convertResponseToString(BatchAnnotateImagesResponse response) {
         String message = "I found these things:\n\n";
         List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
         if (labels != null) {

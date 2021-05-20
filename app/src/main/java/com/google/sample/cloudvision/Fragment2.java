@@ -166,7 +166,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 //알러지를 db에 추가함.
                 InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
                 break;
-            case R.id.buttonDB: //에러가 뜨는 것같음!20일 오후에 보기.
+            case R.id.buttonAget: //에러가 뜨는 것같음!20일 오후에 보기.
                 //알러지db내용 출력
                 Log.v("알러지 shodb시작버튼:","성공");
                 ShowDB_Allergy(DBnameAll, fileDBname_All);
