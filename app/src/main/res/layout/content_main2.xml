@@ -32,25 +32,38 @@
                     android:layout_width="266dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="20dp"/>
 
                 <Button
                     android:id="@+id/buttonAC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="알러지 추가" />
+                    android:text="알레르기 추가"
+                    android:textSize="15dp"/>
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewDBal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/buttonAget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="알러지 조회" />
+                android:text="화장품 속 알레르기"
+                android:textSize="15dp"/>
 
             <TextView
                 android:id="@+id/textViewAl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />//android:text=""
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+
+            //android:text=""
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

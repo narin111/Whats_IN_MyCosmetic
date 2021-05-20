@@ -49,17 +49,11 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     private static final int MAX_DIMENSION = 1200;
 
     private static final String TAG = Fragment2.class.getSimpleName();
-    private static final int GALLERY_PERMISSIONS_REQUEST = 0;
-    private static final int GALLERY_IMAGE_REQUEST = 1;
-    public static final int CAMERA_PERMISSIONS_REQUEST = 2;
-    public static final int CAMERA_IMAGE_REQUEST = 3;
     public static allergyDBcheck checkall;
 
-    private TextView mImageDetails;
-    private ImageView mMainImage;
-    private static TextView textDB;
     private static TextView textskintype;///////
     private static TextView textviewA;
+    private static TextView textViewDB;
 
     //View v = inflater.inflate(R.layout.fragment1, container, false);
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
@@ -147,9 +141,14 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
 
         View view2 = inflater.inflate(R.layout.fragment2, container, false);
 
+        textViewDB= view2.findViewById(R.id.textViewDBal);
+        //checkall.getDBIGall(nameAsql, len);
+        ShowDB_Allergy(DBnameAll, fileDBname_All);
+
         edittextA = view2.findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
         Button buttonAcre = (Button) view2.findViewById(R.id.buttonAC); //알러지 추가하는
         buttonAcre.setOnClickListener(this);
+
 
         textviewA= view2.findViewById(R.id.textViewAl); //알러지 조회내용 출력
         Button buttonAout = (Button) view2.findViewById(R.id.buttonAget); //알러지 추가하는
@@ -165,6 +164,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 Log.v("알러지 가져옴",setAllergy);
                 //알러지를 db에 추가함.
                 InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
+                ShowDB_Allergy(DBnameAll, fileDBname_All);
                 break;
             case R.id.buttonAget: //에러가 뜨는 것같음!20일 오후에 보기.
                 //알러지db내용 출력
@@ -206,6 +206,9 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
             }
             for(int i=0;i<dbArrLength;i++) {
                 Log.v("알러지-데이터베이스 출력Class", DBAllergy[i]);
+            }
+            for(int i=0;i<dbArrLength;i++) {
+                textViewDB.append(DBAllergy[i]+" ");
             }
         }
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
