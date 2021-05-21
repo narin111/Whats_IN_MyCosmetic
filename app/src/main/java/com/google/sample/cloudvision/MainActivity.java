@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment1 fragment1;
     Fragment2 fragment2;
     Fragment3 fragment3;
+    Recommend fragmentR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
+        fragmentR = new Recommend();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
 

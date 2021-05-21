@@ -2,33 +2,27 @@ package com.google.sample.cloudvision;
 
 import android.util.Log;
 
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.JsonParser;
-import com.google.api.client.json.JsonToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ApiExamSearchShop extends Thread{
 
 
-    public static void main(String query) {
+    public static CosmeticList tlist; //리스트 목록을 가져올 수 있는 클래스
+    public static String[] title=new String[100];
+
+    public static void main(String query) { //void main(String query) {
+
         String clientId = "OSj0lA9NwIVPu55cGHBj"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "tZQxrVxI8k"; //애플리케이션 클라이언트 시크릿값"
 
@@ -48,7 +42,11 @@ public class ApiExamSearchShop extends Thread{
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-        System.out.println(responseBody);
+        for(int i=0;i<title.length;i++){
+                Log.v("출력 data -for문: ", title[i]);
+          }
+
+        //System.out.println(responseBody);
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
@@ -103,7 +101,7 @@ public class ApiExamSearchShop extends Thread{
 
             String[] array;
             array = data.split("\"");
-            String[] title=new String[100];
+            //String[] title=new String[100];
             int k=0;
             for(int i=0;i<array.length;i++){
                 if(array[i].equals("title")){
@@ -113,13 +111,25 @@ public class ApiExamSearchShop extends Thread{
                     k++;
                 }
             }
-
-
+            tlist.getcosTitle(title,k);
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
     }
 
+    public static class CosmeticList{ //화장품 목록을 가져오도록 구성한 클래스. readBody에서 호출함.
+        public static String[] costitle=new String[100];
+        public static int costitlelength;
+        public static void getcosTitle(String[] ctitle, int ctlength){
+            costitlelength = ctlength;
+            for(int i=0;i<costitlelength;i++){
+                costitle[i] = ctitle[i];
+            }
+            for(int i=0;i<costitlelength;i++) {
+                Log.v("ApiExamSearchShop 클래스 Class", costitle[i]);
+            }
+        }
+    }
 
 }

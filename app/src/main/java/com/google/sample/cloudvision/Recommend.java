@@ -10,44 +10,54 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-public class Recommend extends Fragment {
-    public static final String KeyIng=" ";
-    private static TextView textCos;
+import java.util.List;
 
+import static com.google.sample.cloudvision.ApiExamSearchShop.CosmeticList;
+
+
+
+public class Recommend extends Fragment implements View.OnClickListener {
+    public static final String KeyW=" ";
+    private static TextView textCos;
+    public static String[] CosList =new String[100];//화장품 목록, ApiExamSearchShop.java의 title
+    public static CosmeticList reclist;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInastanceState){
         super.onStart();
 
         View viewR = inflater.inflate(R.layout.recommend, container, false);
 
-        /*
-        Thread thread = new Thread() {
+
+        /*Thread thread = new Thread() {
             public void run() {
                 ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main(keyIng);
+                api.main(KeyW);
             }
         };
-        thread.start();
-        */
+        thread.start();*/
 
         //Button buttonHN = (Button) viewR.findViewById(R.id.honey); //꿀 버튼
-        //buttonHN.setOnClickListener((View.OnClickListener) this);
+        //buttonHN.setOnClickListener(this);
         String textid=" ";
 
         //for(int i=1;i<=30;i++){
         //textid = "R.id.textCosmetic" +Integer.toString(i);
+
         textCos= viewR.findViewById(R.id.textCosmetic1); //알러지 조회내용 출력
+        crawlApiF("꿀");
+        reclist.;
+
         //}
-        crawlApi("꿀");
+
         //textCos.append();
         return viewR;
     }
 
-    public void crawlApi(String keyIng){
+    public void crawlApiF(String keyword){
         Thread thread = new Thread() {
             public void run() {
                 ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main(KeyIng);
+                api.main(keyword);
             }
         };
         thread.start();

@@ -16,6 +16,7 @@
 
 package com.google.sample.cloudvision;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.AssetManager;
@@ -35,6 +36,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,7 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class Fragment3 extends Fragment {
+public class Fragment3 extends Fragment implements View.OnClickListener{
 
     Recommend fragment1;
     //public static final String keyIng= " ";
@@ -52,20 +54,9 @@ public class Fragment3 extends Fragment {
         super.onStart();
 
         View view3 = inflater.inflate(R.layout.fragment3, container, false);
-        /*
-        Thread thread = new Thread() {
-            public void run() {
-                ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main(keyIng);
-            }
-        };
-        thread.start();
-        */
         fragment1 = new Recommend();
-
         Button buttonHN = (Button) view3.findViewById(R.id.honey); //꿀 버튼
-        buttonHN.setOnClickListener((View.OnClickListener) this);
-
+        buttonHN.setOnClickListener(this);
 
         return view3;
     }
@@ -80,13 +71,17 @@ public class Fragment3 extends Fragment {
         thread.start();
     }
 */
+    //@SuppressLint("ResourceType")
     public void onClick(View view3){
         switch(view3.getId()){
             case R.id.honey:
                 Log.v("버튼 눌림","꿀");
                 //crawlApi("꿀");
                 //Recommend프래그먼트 불러오기
-                //getSupportFragmentManager().beginTransaction().replace(R.layout.fragment3, fragment1).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction.addToBackStack(null);
+                transaction.commit();
                 break;
             default:
                 Log.v("onclick 에러", "에러");
