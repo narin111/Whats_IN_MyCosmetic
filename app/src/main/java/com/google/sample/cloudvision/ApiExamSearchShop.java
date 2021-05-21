@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ApiExamSearchShop extends Thread{
@@ -42,9 +41,6 @@ public class ApiExamSearchShop extends Thread{
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-        for(int i=0;i<title.length;i++){
-                Log.v("출력 data -for문: ", title[i]);
-          }
 
         //System.out.println(responseBody);
     }
@@ -62,6 +58,7 @@ public class ApiExamSearchShop extends Thread{
                 Log.v("정상호출", "야호");
                 return readBody(con.getInputStream());
             } else { // 에러 발생
+                Log.v("비정상호출", "에러");
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
@@ -97,7 +94,7 @@ public class ApiExamSearchShop extends Thread{
             //Log.v("출력: ", responseBody.toString());
 
             String data = responseBody.toString(); // 전체 출력내용을 단순히 배열에 저장함. <b>같은 문자들도 함께 됨.
-            Log.v("출력 data: ", data);
+            //Log.v("출력 data: ", data);
 
             String[] array;
             array = data.split("\"");
@@ -107,7 +104,7 @@ public class ApiExamSearchShop extends Thread{
                 if(array[i].equals("title")){
                     title[k] = array[i+2];
                     title[k] = title[k].replace("<b>", "").replace("</b>",""); // <b>, </b> 없애기
-                    Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
+                    //Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
                     k++;
                 }
             }
@@ -121,14 +118,14 @@ public class ApiExamSearchShop extends Thread{
     public static class CosmeticList{ //화장품 목록을 가져오도록 구성한 클래스. readBody에서 호출함.
         public static String[] costitle=new String[100];
         public static int costitlelength;
-        public static void getcosTitle(String[] ctitle, int ctlength){
+        public static void getcosTitle(String[] ctitle, int ctlength) {
             costitlelength = ctlength;
-            for(int i=0;i<costitlelength;i++){
+            for (int i = 0; i < costitlelength; i++) {
                 costitle[i] = ctitle[i];
             }
-            for(int i=0;i<costitlelength;i++) {
+            /*for (int i = 0; i < costitlelength; i++) {
                 Log.v("ApiExamSearchShop 클래스 Class", costitle[i]);
-            }
+            }*/
         }
     }
 

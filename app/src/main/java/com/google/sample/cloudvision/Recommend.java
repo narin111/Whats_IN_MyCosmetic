@@ -20,32 +20,25 @@ public class Recommend extends Fragment implements View.OnClickListener {
     public static final String KeyW=" ";
     private static TextView textCos;
     public static String[] CosList =new String[100];//화장품 목록, ApiExamSearchShop.java의 title
-    public static CosmeticList reclist;
+    //public static CosmeticList reclist;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInastanceState){
         super.onStart();
 
         View viewR = inflater.inflate(R.layout.recommend, container, false);
 
-
-        /*Thread thread = new Thread() {
-            public void run() {
-                ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main(KeyW);
-            }
-        };
-        thread.start();*/
-
-        //Button buttonHN = (Button) viewR.findViewById(R.id.honey); //꿀 버튼
-        //buttonHN.setOnClickListener(this);
         String textid=" ";
-
-        //for(int i=1;i<=30;i++){
-        //textid = "R.id.textCosmetic" +Integer.toString(i);
 
         textCos= viewR.findViewById(R.id.textCosmetic1); //알러지 조회내용 출력
         crawlApiF("꿀");
-        reclist.;
+        /* //꿀 정보 얻어오는거 에러남.
+        for(int i=0;i<CosmeticList.costitlelength;i++){
+            Log.v("꿀 제발11",CosmeticList.costitle[i]);
+            CosList[i] = CosmeticList.costitle[i];
+            Log.v("꿀 제발22",CosList[i]);
+        }
+*/
 
         //}
 
@@ -67,7 +60,13 @@ public class Recommend extends Fragment implements View.OnClickListener {
         switch(view3.getId()){
             case R.id.honey:
                 Log.v("버튼 눌림","꿀");
-                //crawlApi("꿀");
+//                crawlApiF("꿀");
+//                Log.v("함수 동작","꿀");
+//                for(int i=0;i<CosmeticList.costitlelength;i++){
+//                    Log.v("꿀 제발11",CosmeticList.costitle[i]);
+//                    CosList[i] = CosmeticList.costitle[i];
+//                    Log.v("꿀 제발22",CosList[i]);
+//                }
                 break;
             default:
                 Log.v("onclick 에러", "에러");
