@@ -74,6 +74,7 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 transaction.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
                 transaction.addToBackStack(null);
                 transaction.commit();
+                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             default:
                 Log.v("onclick 에러", "에러");
