@@ -19,11 +19,13 @@ package com.google.sample.cloudvision;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.Layout;
@@ -47,7 +49,7 @@ import java.io.InputStream;
 public class Fragment3 extends Fragment implements View.OnClickListener{
 
     Recommend fragment1;
-    //public static final String keyIng= " ";
+    public static String keyIng= " ";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInastanceState){
@@ -60,22 +62,12 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
 
         return view3;
     }
-    /*
-    public void crawlApi(String Ing){
-        Thread thread = new Thread() {
-            public void run() {
-                ApiExamSearchShop api = new ApiExamSearchShop();
-                api.main(keyIng);
-            }
-        };
-        thread.start();
-    }
-*/
-    //@SuppressLint("ResourceType")
+
     public void onClick(View view3){
         switch(view3.getId()){
             case R.id.honey:
                 Log.v("버튼 눌림","꿀");
+                keyIng="꿀";
                 //crawlApi("꿀");
                 //Recommend프래그먼트 불러오기
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
