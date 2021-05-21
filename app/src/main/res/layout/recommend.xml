@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS1"
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS2"
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS3"
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS4"
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS5"
@@ -138,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS6"
@@ -159,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS7"
@@ -180,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS8"
@@ -201,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS9"
@@ -223,7 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS10"
@@ -244,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS11"
@@ -265,7 +265,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS12"
@@ -286,7 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS13"
@@ -307,7 +307,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS14"
@@ -328,7 +328,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS15"
@@ -349,7 +349,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS16"
@@ -370,7 +370,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS17"
@@ -391,7 +391,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS18"
@@ -412,7 +412,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS19"
@@ -433,7 +433,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS20"
@@ -454,7 +454,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS21"
@@ -475,7 +475,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS22"
@@ -496,7 +496,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS23"
@@ -517,7 +517,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS24"
@@ -538,7 +538,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS25"
@@ -559,7 +559,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS26"
@@ -580,7 +580,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS27"
@@ -601,7 +601,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS28"
@@ -622,7 +622,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS29"
@@ -643,7 +643,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <Button
                     android:id="@+id/btnCS30"
