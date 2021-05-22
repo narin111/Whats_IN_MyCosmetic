@@ -158,7 +158,7 @@ public class Recommend extends Fragment implements View.OnClickListener {
 
     public void onClick(View view3){
         switch(view3.getId()){
-            case R.id.honey:
+            case R.id.btnCS1: //첫번째 화장품의 사이트가 들어가야함. ApiExamSearchShop.java도 수정해야할듯.
                 Log.v("버튼 눌림","꿀");
                 //웹뷰띄우기
                 break;
