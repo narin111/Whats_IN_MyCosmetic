@@ -56,7 +56,7 @@ public class Recommend extends Fragment implements View.OnClickListener {
         super.onStart();
 
         View viewR = inflater.inflate(R.layout.recommend, container, false);
-        crawlApiF("꿀"); //Fragment3.java에서 버튼을 누를때 keyword에 각 성분을 넣을 수 있도록 코드를 다시 구성해야함.
+        //crawlApiF("꿀"); //Fragment3.java에서 버튼을 누를때 keyword에 각 성분을 넣을 수 있도록 코드를 다시 구성해야함.
 
         //이 아래부분 효율적으로 할수 있다면 바꿔보기ㅠㅠㅠㅠㅠㅠ
         textCos1= viewR.findViewById(R.id.textCosmetic1);

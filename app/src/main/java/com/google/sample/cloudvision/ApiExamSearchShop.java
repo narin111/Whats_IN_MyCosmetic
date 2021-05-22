@@ -21,6 +21,7 @@ public class ApiExamSearchShop extends Thread{
     public static String[] title=new String[100];
 
     public static void main(String query) { //void main(String query) {
+        Log.v("query 받음: ", query);
 
         String clientId = "OSj0lA9NwIVPu55cGHBj"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "tZQxrVxI8k"; //애플리케이션 클라이언트 시크릿값"
