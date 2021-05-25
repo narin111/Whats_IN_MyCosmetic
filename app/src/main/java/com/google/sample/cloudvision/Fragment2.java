@@ -179,7 +179,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static class allergyDBcheck{ //이미지 성분과 알러지 데이터베이스 성분들 비교하기.
+    public static class allergyDBcheck { //이미지 성분과 알러지 데이터베이스 성분들 비교하기.
         private static String imageIng[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
         private static String DBAllergy[] = new String[100]; //알러지 배열.[성분명]
@@ -188,32 +188,35 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
+
         //1. 사진에서 성분가져온걸 저장하는 함수.
-        public static void getImageIGall(String[] imageIG, int IGlength){ //Fragment1에서 가져올수 있을지?
+        public static void getImageIGall(String[] imageIG, int IGlength) { //Fragment1에서 가져올수 있을지?
             imageArrLength = IGlength;
-            for(int i=0;i<imageArrLength;i++){
+            for (int i = 0; i < imageArrLength; i++) {
                 imageIng[i] = imageIG[i];
             }
-            for(int i=0;i<imageArrLength;i++) {
+            for (int i = 0; i < imageArrLength; i++) {
                 Log.v("알러지-이미지성분Class", imageIng[i]);
             }
         }
+
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
-        public static void getDBIGall(String[] dbIG, int dblength){
+        public static void getDBIGall(String[] dbIG, int dblength) {
             dbArrLength = dblength;
-            for(int i=0;i<dbArrLength;i++){
+            for (int i = 0; i < dbArrLength; i++) {
                 DBAllergy[i] = dbIG[i];
             }
-            for(int i=0;i<dbArrLength;i++) {
+            for (int i = 0; i < dbArrLength; i++) {
                 Log.v("알러지-데이터베이스 출력Class", DBAllergy[i]);
             }
-            for(int i=0;i<dbArrLength;i++) {
-                textViewDB.append(DBAllergy[i]+" ");
+            for (int i = 0; i < dbArrLength; i++) {
+                textViewDB.append(DBAllergy[i] + " ");
             }
         }
+
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
-        public static void IGcheckall(){
-            for(int i=0;i<imageArrLength;i++) {
+        public static void IGcheckall() {
+            for (int i = 0; i < imageArrLength; i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIng[i].equals(DBAllergy[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
                         checkAll[checkCount] = DBAllergy[j];
@@ -221,11 +224,10 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("알러지 비교결과Class", "결과"+i+": "+checkAll[i]);
-                textviewA.append("결과"+(i+1)+": "+checkAll[i]+" \n");
+            for (int i = 0; i < checkCount; i++) { //비교결과 로그출력.
+                Log.v("알러지 비교결과Class", "결과" + i + ": " + checkAll[i]);
+                textviewA.append("결과" + (i + 1) + ": " + checkAll[i] + " \n");
             }
         }
     }
-
 }

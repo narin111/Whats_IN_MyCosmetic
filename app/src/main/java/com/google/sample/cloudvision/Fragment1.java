@@ -92,6 +92,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
 
+
     private TextView mImageDetails;
     private ImageView mMainImage;
     private static TextView textDB;
@@ -598,6 +599,25 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     //나린 //안드로이드 오류해결 확인
     //나린
 
+    public void inputScore(String[] imageIG, int inscore){
+        setDB(this, "scoreinput.db");
+        int len = imageIG.length;
+        mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
+        db = mHelper.getWritableDatabase();
+        for(int i=0; i<len; i++){
+            ContentValues values = new ContentValues();
+            values.put("ingredient", imageIG[i]);
+            values.put("score", inscore);
+            db.insert("scoreinput", null, values);
+        }
+        /*
+        Log.v("알러지 Helper ",setAllergy);
+        ContentValues values = new ContentValues();
+        values.put("allergyName", setAllergy);
+        db.insert(name, null, values);
+        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.*/
+    }
+
     public static class SkinTypeDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기.
 
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
@@ -682,4 +702,5 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
     ////////////////////////////////
+
 }
