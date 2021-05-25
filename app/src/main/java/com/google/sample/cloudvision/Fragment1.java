@@ -92,6 +92,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
+    private static String[] ingScore = new String[100];
+    //private static String[] ingScore;
+
+    //public String[] ingScore = new String[100];
 
     private TextView mImageDetails;
     private ImageView mMainImage;
@@ -265,22 +269,27 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 switch (checkedId){
                     case R.id.radioButton:
                         Log.v("라디오 그룹", "매우만족");
+                        inputScore(100);
                         //Toast.makeText(getActivity(),"매우만족 선택",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButton2:
                         Log.v("라디오 그룹", "만족");
+                        inputScore(75);
                         //Toast.makeText(getActivity(),"만족 선택",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButton3:
                         Log.v("라디오 그룹", "ㅂㅌ");
+                        inputScore(50);
                         //Toast.makeText(getActivity(),"보통 선택",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButton4:
                         Log.v("라디오 그룹", "ㅂ만족");
+                        inputScore(25);
                         //Toast.makeText(getActivity(),"불만족 선택",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButton5:
                         Log.v("라디오 그룹", "매우 ㅂ만족");
+                        inputScore(1);
                         //Toast.makeText(getActivity(),"매우 불만족 선택",Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -558,13 +567,17 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         message = message.replace("\n", ""); // 개행문자 없애기
         String ingredient[] = message.split(","); // , 기준으로 단어 자르기 // ,으로 표기 안했다면...?
         for(int i=0;i<ingredient.length; i++){
+
+            ingScore[i]=ingredient[i];
             Log.v("단어자르기", ingredient[i]); // 로그로 확인
+
         }
         /////
         //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
         checkall.getImageIGall(ingredient, ingredient.length);
+
         /////
         return message;
     }
@@ -713,6 +726,61 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             }
             ////
         }
+    }
+
+
+    public void inputScore(int inscore){
+        Log.v("점수:", String.valueOf(inscore));
+        setDB(this, "scoreinput.db");
+        int len = ingScore.length;
+        Log.v("성분잘받아짐?", ingScore[0]);
+        mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
+        db = mHelper.getWritableDatabase();
+        for(int i=0; i<len; i++){
+            Log.v("포문 확인","확인확인");
+            ContentValues values = new ContentValues();
+            //Log.v("출력", ingScore[i]);
+            values.put("ingredient", ingScore[i]);
+            values.put("score", inscore);
+            db.insert("scoreinput", null, values);
+        }
+        Log.v("포문끝","확인");
+        ShowDBscore("scoreinput");
+    }
+
+    private void ShowDBscore(String name){
+
+        Log.v("dbname: ",  "score");
+
+        setDB(this, "scoreinput.db");//setDB_Type(this);
+        mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
+        db =mHelper.getReadableDatabase();
+
+        int len=0;//배열들 길이
+        String namecol= null;
+        int typecol = 0;
+
+        String sql = "Select * FROM " +name; // DBname;
+        String[] resNamesql1 = new String[100];
+        int[] resTypesql1 = new int[100];
+
+
+        cursor = db.rawQuery(sql , null);
+        while (cursor.moveToNext()) {
+            Log.v("여기까지", "가나요");
+            namecol = cursor.getString(0);
+            typecol= cursor.getInt(1);
+
+            Log.v("타입:",namecol);
+            Log.v("점수", String.valueOf(typecol));
+
+            resNamesql1[len] = namecol;
+            resTypesql1[len] = typecol;
+
+
+            len++;
+        }
+
     }
     ////////////////////////////////
 }
