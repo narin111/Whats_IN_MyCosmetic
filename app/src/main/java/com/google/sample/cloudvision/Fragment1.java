@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -223,6 +224,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     String setAllergy; //알러지 담아오는 변수
 
+    RadioGroup radiog; //라디오그룹
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -253,6 +256,36 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
                     .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
             builder.create().show();
+        });
+
+        radiog = (RadioGroup) view1.findViewById(R.id.radioGroup);
+        radiog.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radioButton:
+                        Log.v("라디오 그룹", "매우만족");
+                        //Toast.makeText(getActivity(),"매우만족 선택",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton2:
+                        Log.v("라디오 그룹", "만족");
+                        //Toast.makeText(getActivity(),"만족 선택",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton3:
+                        Log.v("라디오 그룹", "ㅂㅌ");
+                        //Toast.makeText(getActivity(),"보통 선택",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton4:
+                        Log.v("라디오 그룹", "ㅂ만족");
+                        //Toast.makeText(getActivity(),"불만족 선택",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton5:
+                        Log.v("라디오 그룹", "매우 ㅂ만족");
+                        //Toast.makeText(getActivity(),"매우 불만족 선택",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+            }
         });
 
         return view1;
