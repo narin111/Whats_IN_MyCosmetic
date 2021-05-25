@@ -93,6 +93,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check2;/////////////
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
+    public static int ingScorelen;
     //private static String[] ingScore;
 
     //public String[] ingScore = new String[100];
@@ -566,10 +567,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         message = message.replace(", ", ","); // , 뒤 공백 없애기
         message = message.replace("\n", ""); // 개행문자 없애기
         String ingredient[] = message.split(","); // , 기준으로 단어 자르기 // ,으로 표기 안했다면...?
-        for(int i=0;i<ingredient.length; i++){
 
-            ingScore[i]=ingredient[i];
+        for(int i=0;i<ingredient.length; i++){
             Log.v("단어자르기", ingredient[i]); // 로그로 확인
+            ingScore[i]=ingredient[i];
 
         }
         /////
@@ -577,6 +578,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
         checkall.getImageIGall(ingredient, ingredient.length);
+        ingScorelen = ingredient.length;
 
         /////
         return message;
@@ -730,15 +732,15 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
 
     public void inputScore(int inscore){
-        Log.v("점수:", String.valueOf(inscore));
+        //Log.v("점수:", String.valueOf(inscore));
         setDB(this, "scoreinput.db");
-        int len = ingScore.length;
+        int len = ingScorelen;
         Log.v("성분잘받아짐?", ingScore[0]);
         mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
         db = mHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
         for(int i=0; i<len; i++){
-            Log.v("포문 확인","확인확인");
-            ContentValues values = new ContentValues();
+            Log.v("포문 확인","확인확인");///
             //Log.v("출력", ingScore[i]);
             values.put("ingredient", ingScore[i]);
             values.put("score", inscore);
@@ -747,6 +749,40 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         Log.v("포문끝","확인");
         ShowDBscore("scoreinput");
     }
+
+    public void CntScore(String[] nameing, int[] scoreing, int dblen){
+        int len = ingScorelen;
+        String[] resultname = new String[100];
+        int[] resultscore = new int[100];
+        int cnt=0;
+        int ScoreSum=0;
+        for(int i=0; i<len; i++){
+            for(int j=0;j<dblen;j++){
+                if(ingScore[i].equals(nameing[j])){
+                    Log.v("ingScore검사",ingScore[i]);
+                    cnt++;
+                    ScoreSum+=scoreing[j];
+                    Log.v("scoreing 더해짐", String.valueOf(scoreing[j]));
+                    Log.v("더해짐", String.valueOf(ScoreSum));
+                }
+                Log.v("총점", String.valueOf(ScoreSum));
+                resultname[i]=ingScore[i];
+                if(cnt!=0)resultscore[i]=ScoreSum/cnt;
+                else if(cnt==0) resultscore[i]=ScoreSum/1;
+            }
+            cnt=0;
+            ScoreSum=0;
+        }
+
+        for(int j=0; j<len; j++){
+            Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]); //오류의심을 해본다.
+        }
+        for(int j=0; j<len; j++){
+            resultname[j]="";
+            resultscore[j]=0;
+        }
+    }
+
 
     private void ShowDBscore(String name){
 
@@ -758,29 +794,33 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         int len=0;//배열들 길이
         String namecol= null;
-        int typecol = 0;
+        int scorecol = 0;
 
         String sql = "Select * FROM " +name; // DBname;
-        String[] resNamesql1 = new String[100];
-        int[] resTypesql1 = new int[100];
+        String[] Nameing = new String[100];
+        int[] Scoreing = new int[100];
 
 
         cursor = db.rawQuery(sql , null);
         while (cursor.moveToNext()) {
-            Log.v("여기까지", "가나요");
+            Log.v("여기까지", len + "가나요");
             namecol = cursor.getString(0);
-            typecol= cursor.getInt(1);
+            scorecol= cursor.getInt(1);
 
             Log.v("타입:",namecol);
-            Log.v("점수", String.valueOf(typecol));
+            Log.v("점수", String.valueOf(scorecol));
 
-            resNamesql1[len] = namecol;
-            resTypesql1[len] = typecol;
+            Nameing[len] = namecol;
+            Scoreing[len] = scorecol;
 
 
             len++;
         }
-
+        CntScore(Nameing, Scoreing,len);
+        for(int i=0;i<len;i++) {
+            Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
+        }
     }
+
     ////////////////////////////////
 }
