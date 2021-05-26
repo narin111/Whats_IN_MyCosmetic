@@ -791,10 +791,12 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             }
         }
 
-        float resultnum = (satisavg*100/len); //만족도높은 성분/전체 비율
+        int resultnum = (satisavg*100/len); //만족도높은 성분/전체 비율
+        //String result = String.format("%.2f", resultnum);
+
         ////성분이미지와 얼마나 일치하는지 비교
         //showRec("만족도가 높았던 화장품의 성분들이"+samenum+"일치해요!");
-        showRec("만족도가 높았던 화장품의 성분들이 "+resultnum+" % 만큼 포함되어 있어요!");
+        showRec("만족도가 높았던 화장품의 성분들이 \n"+resultnum+" % 만큼 포함되어 있어요!");
 
         for(int j=0; j<len; j++){
             resultname[j]="";
@@ -844,7 +846,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
     private void showRec(String RecSentence){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
         builder.setTitle("사용자 맞춤추천");
         builder.setMessage(RecSentence);
 
