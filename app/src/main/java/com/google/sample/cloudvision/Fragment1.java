@@ -18,6 +18,7 @@ package com.google.sample.cloudvision;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -94,6 +95,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
+
     //private static String[] ingScore;
 
     //public String[] ingScore = new String[100];
@@ -301,12 +303,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         return view1;
     }
 
-    public void onClick(View view){
+    public void onClick(View view){ ///추천도 성분조회 버튼 클릭 시 알림창 띄움
         switch(view.getId()){
             case R.id.buttonDB:
                 Log.v("디비버튼", "눌림");
                 ShowDBInfo(DBname, fileDBname);
                 check1.IGcheck();
+                ShowDBscore("scoreinput");////
                 break;
             case R.id.buttonoil:
                 Log.v("지성버튼", "눌림");
@@ -580,7 +583,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         checkall.getImageIGall(ingredient, ingredient.length);
         ingScorelen = ingredient.length;
 
-        /////
+        /////통계결과showdbscore부르기///
+        //ShowDBscore("scoreinput");
         return message;
     }
     /////////////////////////////////
@@ -747,17 +751,17 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             db.insert("scoreinput", null, values);
         }
         Log.v("포문끝","확인");
-        ShowDBscore("scoreinput");
+        //ShowDBscore("scoreinput");
     }
 
     public void CntScore(String[] nameing, int[] scoreing, int dblen){
-        int len = ingScorelen;
+        int len = ingScorelen; //이미지성분길이
         String[] resultname = new String[100];
         int[] resultscore = new int[100];
         int cnt=0;
         int ScoreSum=0;
         for(int i=0; i<len; i++){
-            for(int j=0;j<dblen;j++){
+            for(int j=0;j<dblen;j++){ //성분이미지랑 비교해서 사용자만족도DB와 같은 성분만 모두 합
                 if(ingScore[i].equals(nameing[j])){
                     Log.v("ingScore검사",ingScore[i]);
                     cnt++;
@@ -775,12 +779,30 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
 
         for(int j=0; j<len; j++){
-            Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]); //오류의심을 해본다.
+            Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]);
         }
+
+        int samenum = resultname.length; //사용자만족도DB랑 사진성분이랑 같은 개수
+        int satisavg=0;
+        for(int k=0; k<samenum; k++){
+            if(resultscore[k]>=50){
+                satisavg++;
+                Log.v("얼마나 포함?", String.valueOf(satisavg));
+            }
+        }
+
+        float resultnum = (satisavg*100/len); //만족도높은 성분/전체 비율
+        ////성분이미지와 얼마나 일치하는지 비교
+        //showRec("만족도가 높았던 화장품의 성분들이"+samenum+"일치해요!");
+        showRec("만족도가 높았던 화장품의 성분들이 "+resultnum+" % 만큼 포함되어 있어요!");
+
         for(int j=0; j<len; j++){
             resultname[j]="";
             resultscore[j]=0;
         }
+
+
+
     }
 
 
@@ -796,7 +818,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         String namecol= null;
         int scorecol = 0;
 
-        String sql = "Select * FROM " +name; // DBname;
+        String sql = "Select * FROM " + name; // DBname;
         String[] Nameing = new String[100];
         int[] Scoreing = new int[100];
 
@@ -810,8 +832,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             Log.v("타입:",namecol);
             Log.v("점수", String.valueOf(scorecol));
 
-            Nameing[len] = namecol;
-            Scoreing[len] = scorecol;
+            Nameing[len] = namecol; //사용자가 사용했던 화장품 성분배열
+            Scoreing[len] = scorecol; //사용자가 입력한 만족도 점수
 
 
             len++;
@@ -820,6 +842,23 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         for(int i=0;i<len;i++) {
             Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
         }
+    }
+    private void showRec(String RecSentence){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("사용자 맞춤추천");
+        builder.setMessage(RecSentence);
+
+        //builder.setIcon(R.drawable.ic_dialog_alert);
+
+        builder.setPositiveButton("확인했어요!", new DialogInterface.OnClickListener(){ //실행은 안됨(textview지저분)
+            public void onClick(DialogInterface dialog, int which){
+                String message = "추천도를 확인했습니다";
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     ////////////////////////////////
