@@ -106,13 +106,12 @@ public class ApiExamSearchShop extends Thread{
                 if(array[i].equals("title")){
                     title[k] = array[i+2];
                     title[k] = title[k].replace("<b>", "").replace("</b>",""); // <b>, </b> 없애기
-                    Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
+                    //Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
                     k++;
                 }
                 else if(array[i].equals("link")){
                     link[l] = array[i+2];
-                    //link[k] = link[k].replace("<b>", "").replace("</b>",""); // <b>, </b> 없애기
-                    Log.v("출력 data -for문: ", String.valueOf(l)+": "+link[l]);
+                    //Log.v("출력 data -for문: ", String.valueOf(l)+": "+link[l]);
                     l++;
                 }
             }
@@ -146,9 +145,9 @@ public class ApiExamSearchShop extends Thread{
             for (int i = 0; i < coslinklength; i++) {
                 coslink[i] = ctitle[i];
             }
-            for (int i = 0; i < costitlelength; i++) {
-                Log.v("ApiExamSearchShop 클래스 Class-링크들", coslink[i]);
-            }
+//            for (int i = 0; i < costitlelength; i++) {
+//                Log.v("ApiExamSearchShop 클래스 Class-링크들", coslink[i]);
+//            }
         }
     }
 
