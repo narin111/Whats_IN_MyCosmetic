@@ -49,6 +49,7 @@ public class Recommend extends Fragment implements View.OnClickListener {
     private static TextView textCos29;
     private static TextView textCos30;
     public static String[] CosList =new String[100];//화장품 목록, ApiExamSearchShop.java의 title
+    public static String[] CosLinkList =new String[100];//화장품 각 링크 목록, ApiExamSearchShop.java의 link
 
 
     @Override
@@ -141,6 +142,11 @@ public class Recommend extends Fragment implements View.OnClickListener {
                 for(int i=0;i<CosmeticList.costitlelength;i++){
                     //Log.v("꿀 제발11",CosmeticList.costitle[i]);
                     CosList[i] = CosmeticList.costitle[i];
+                    //Log.v("꿀 제발22",Integer.toString(i)+" " +CosList[i]);
+                }
+                for(int i=0;i<CosmeticList.coslinklength;i++){
+                    //Log.v("꿀 제발11",CosmeticList.costitle[i]);
+                    CosLinkList[i] = CosmeticList.coslink[i];
                     //Log.v("꿀 제발22",Integer.toString(i)+" " +CosList[i]);
                 }
             }
