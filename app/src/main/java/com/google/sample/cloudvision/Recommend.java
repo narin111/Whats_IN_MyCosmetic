@@ -1,5 +1,7 @@
 package com.google.sample.cloudvision;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +51,7 @@ public class Recommend extends Fragment implements View.OnClickListener {
     private static TextView textCos29;
     private static TextView textCos30;
     public static String[] CosList =new String[100];//화장품 목록, ApiExamSearchShop.java의 title
+    public static String[] CosLinkList =new String[100];//화장품 각 링크 목록, ApiExamSearchShop.java의 link
 
 
     @Override
@@ -56,9 +59,7 @@ public class Recommend extends Fragment implements View.OnClickListener {
         super.onStart();
 
         View viewR = inflater.inflate(R.layout.recommend, container, false);
-        //crawlApiF("꿀"); //Fragment3.java에서 버튼을 누를때 keyword에 각 성분을 넣을 수 있도록 코드를 다시 구성해야함.
 
-        //이 아래부분 효율적으로 할수 있다면 바꿔보기ㅠㅠㅠㅠㅠㅠ
         textCos1= viewR.findViewById(R.id.textCosmetic1);
         textCos1.append(CosList[0]);
         textCos2= viewR.findViewById(R.id.textCosmetic2);
@@ -120,15 +121,66 @@ public class Recommend extends Fragment implements View.OnClickListener {
         textCos30= viewR.findViewById(R.id.textCosmetic30);
         textCos30.append(CosList[29]);
 
-//        textlist = CosList[0]; //성공
-//        textCos.append(textlist);
-
-//        for(int i=0;i<30;i++){
-//            Log.v("꿀 제발33",i+" " +CosList[i]);
-//        }
-
-
-
+        Button button1 = (Button) viewR.findViewById(R.id.btnCS1);
+        button1.setOnClickListener(this);
+        Button button2 = (Button) viewR.findViewById(R.id.btnCS2);
+        button2.setOnClickListener(this);
+        Button button3 = (Button) viewR.findViewById(R.id.btnCS3);
+        button3.setOnClickListener(this);
+        Button button4 = (Button) viewR.findViewById(R.id.btnCS4);
+        button4.setOnClickListener(this);
+        Button button5 = (Button) viewR.findViewById(R.id.btnCS5);
+        button5.setOnClickListener(this);
+        Button button6 = (Button) viewR.findViewById(R.id.btnCS6);
+        button6.setOnClickListener(this);
+        Button button7 = (Button) viewR.findViewById(R.id.btnCS7);
+        button7.setOnClickListener(this);
+        Button button8 = (Button) viewR.findViewById(R.id.btnCS8);
+        button8.setOnClickListener(this);
+        Button button9 = (Button) viewR.findViewById(R.id.btnCS9);
+        button9.setOnClickListener(this);
+        Button button10 = (Button) viewR.findViewById(R.id.btnCS10);
+        button10.setOnClickListener(this);
+        Button button11 = (Button) viewR.findViewById(R.id.btnCS11);
+        button11.setOnClickListener(this);
+        Button button12 = (Button) viewR.findViewById(R.id.btnCS12);
+        button12.setOnClickListener(this);
+        Button button13 = (Button) viewR.findViewById(R.id.btnCS13);
+        button13.setOnClickListener(this);
+        Button button14 = (Button) viewR.findViewById(R.id.btnCS14);
+        button14.setOnClickListener(this);
+        Button button15 = (Button) viewR.findViewById(R.id.btnCS15);
+        button15.setOnClickListener(this);
+        Button button16 = (Button) viewR.findViewById(R.id.btnCS16);
+        button16.setOnClickListener(this);
+        Button button17 = (Button) viewR.findViewById(R.id.btnCS17);
+        button17.setOnClickListener(this);
+        Button button18 = (Button) viewR.findViewById(R.id.btnCS18);
+        button18.setOnClickListener(this);
+        Button button19 = (Button) viewR.findViewById(R.id.btnCS19);
+        button19.setOnClickListener(this);
+        Button button20 = (Button) viewR.findViewById(R.id.btnCS20);
+        button20.setOnClickListener(this);
+        Button button21 = (Button) viewR.findViewById(R.id.btnCS21);
+        button21.setOnClickListener(this);
+        Button button22 = (Button) viewR.findViewById(R.id.btnCS22);
+        button22.setOnClickListener(this);
+        Button button23 = (Button) viewR.findViewById(R.id.btnCS23);
+        button23.setOnClickListener(this);
+        Button button24 = (Button) viewR.findViewById(R.id.btnCS24);
+        button24.setOnClickListener(this);
+        Button button25 = (Button) viewR.findViewById(R.id.btnCS25);
+        button25.setOnClickListener(this);
+        Button button26 = (Button) viewR.findViewById(R.id.btnCS26);
+        button26.setOnClickListener(this);
+        Button button27 = (Button) viewR.findViewById(R.id.btnCS27);
+        button27.setOnClickListener(this);
+        Button button28 = (Button) viewR.findViewById(R.id.btnCS28);
+        button28.setOnClickListener(this);
+        Button button29 = (Button) viewR.findViewById(R.id.btnCS29);
+        button29.setOnClickListener(this);
+        Button button30 = (Button) viewR.findViewById(R.id.btnCS30);
+        button30.setOnClickListener(this);
 
         return viewR;
     }
@@ -142,6 +194,11 @@ public class Recommend extends Fragment implements View.OnClickListener {
                     //Log.v("꿀 제발11",CosmeticList.costitle[i]);
                     CosList[i] = CosmeticList.costitle[i];
                     //Log.v("꿀 제발22",Integer.toString(i)+" " +CosList[i]);
+                }
+                for(int i=0;i<CosmeticList.coslinklength;i++){
+                    //Log.v("꿀 제발11",CosmeticList.costitle[i]);
+                    CosLinkList[i] = CosmeticList.coslink[i];
+                    Log.v("꿀 제발22",Integer.toString(i)+" " + CosLinkList[i]);
                 }
             }
         };
@@ -158,9 +215,158 @@ public class Recommend extends Fragment implements View.OnClickListener {
 
     public void onClick(View view3){
         switch(view3.getId()){
-            case R.id.btnCS1: //첫번째 화장품의 사이트가 들어가야함. ApiExamSearchShop.java도 수정해야할듯.
-                Log.v("버튼 눌림","꿀");
+            case R.id.btnCS1:
+                Log.v("버튼 눌림","첫번째 웹뷰");
                 //웹뷰띄우기
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[0]));
+                startActivity(intent);
+                break;
+            case R.id.btnCS2:
+                Log.v("버튼 눌림","두번째 웹뷰");
+                //웹뷰띄우기
+                Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[1]));
+                startActivity(intent2);
+                break;
+            case R.id.btnCS3:
+                Log.v("버튼 눌림","세번째 웹뷰");
+                //웹뷰띄우기
+                Intent intent3 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[2]));
+                startActivity(intent3);
+                break;
+            case R.id.btnCS4:
+                //웹뷰띄우기
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[3]));
+                startActivity(intent4);
+                break;
+            case R.id.btnCS5:
+                //웹뷰띄우기
+                Intent intent5 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[4]));
+                startActivity(intent5);
+                break;
+            case R.id.btnCS6:
+                //웹뷰띄우기
+                Intent intent6 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[5]));
+                startActivity(intent6);
+                break;
+            case R.id.btnCS7:
+                //웹뷰띄우기
+                Intent intent7 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[6]));
+                startActivity(intent7);
+                break;
+            case R.id.btnCS8:
+                //웹뷰띄우기
+                Intent intent8 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[7]));
+                startActivity(intent8);
+                break;
+            case R.id.btnCS9:
+                //웹뷰띄우기
+                Intent intent9 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[8]));
+                startActivity(intent9);
+                break;
+            case R.id.btnCS10:
+                //웹뷰띄우기
+                Intent intent10 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[9]));
+                startActivity(intent10);
+                break;
+            case R.id.btnCS11:
+                //웹뷰띄우기
+                Intent intent11 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[10]));
+                startActivity(intent11);
+                break;
+            case R.id.btnCS12:
+                //웹뷰띄우기
+                Intent intent12 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[11]));
+                startActivity(intent12);
+                break;
+            case R.id.btnCS13:
+                //웹뷰띄우기
+                Intent intent13 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[12]));
+                startActivity(intent13);
+                break;
+            case R.id.btnCS14:
+                //웹뷰띄우기
+                Intent intent14 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[13]));
+                startActivity(intent14);
+                break;
+            case R.id.btnCS15:
+                //웹뷰띄우기
+                Intent intent15 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[14]));
+                startActivity(intent15);
+                break;
+            case R.id.btnCS16:
+                //웹뷰띄우기
+                Intent intent16 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[15]));
+                startActivity(intent16);
+                break;
+            case R.id.btnCS17:
+                //웹뷰띄우기
+                Intent intent17 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[16]));
+                startActivity(intent17);
+                break;
+            case R.id.btnCS18:
+                //웹뷰띄우기
+                Intent intent18 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[17]));
+                startActivity(intent18);
+                break;
+            case R.id.btnCS19:
+                //웹뷰띄우기
+                Intent intent19 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[18]));
+                startActivity(intent19);
+                break;
+            case R.id.btnCS20:
+                //웹뷰띄우기
+                Intent intent20 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[19]));
+                startActivity(intent20);
+                break;
+            case R.id.btnCS21:
+                //웹뷰띄우기
+                Intent intent21 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[20]));
+                startActivity(intent21);
+                break;
+            case R.id.btnCS22:
+                //웹뷰띄우기
+                Intent intent22 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[21]));
+                startActivity(intent22);
+                break;
+            case R.id.btnCS23:
+                //웹뷰띄우기
+                Intent intent23 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[22]));
+                startActivity(intent23);
+                break;
+            case R.id.btnCS24:
+                //웹뷰띄우기
+                Intent intent24 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[23]));
+                startActivity(intent24);
+                break;
+            case R.id.btnCS25:
+                //웹뷰띄우기
+                Intent intent25 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[24]));
+                startActivity(intent25);
+                break;
+            case R.id.btnCS26:
+                //웹뷰띄우기
+                Intent intent26 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[25]));
+                startActivity(intent26);
+                break;
+            case R.id.btnCS27:
+                //웹뷰띄우기
+                Intent intent27 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[26]));
+                startActivity(intent27);
+                break;
+            case R.id.btnCS28:
+                //웹뷰띄우기
+                Intent intent28 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[27]));
+                startActivity(intent28);
+                break;
+            case R.id.btnCS29:
+                //웹뷰띄우기
+                Intent intent29 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[28]));
+                startActivity(intent29);
+                break;
+            case R.id.btnCS30:
+                //웹뷰띄우기
+                Intent intent30 = new Intent(Intent.ACTION_VIEW, Uri.parse(CosLinkList[29]));
+                startActivity(intent30);
                 break;
             default:
                 Log.v("onclick 에러", "에러");

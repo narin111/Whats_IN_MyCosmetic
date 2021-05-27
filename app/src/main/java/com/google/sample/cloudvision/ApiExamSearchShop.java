@@ -19,6 +19,7 @@ public class ApiExamSearchShop extends Thread{
 
     public static CosmeticList tlist; //리스트 목록을 가져올 수 있는 클래스
     public static String[] title=new String[100];
+    public static String[] link=new String[100];
 
     public static void main(String query) { //void main(String query) {
         Log.v("query 받음: ", query);
@@ -100,7 +101,7 @@ public class ApiExamSearchShop extends Thread{
             String[] array;
             array = data.split("\"");
             //String[] title=new String[100];
-            int k=0;
+            int k=0, l=0;
             for(int i=0;i<array.length;i++){
                 if(array[i].equals("title")){
                     title[k] = array[i+2];
@@ -108,8 +109,14 @@ public class ApiExamSearchShop extends Thread{
                     //Log.v("출력 data -for문: ", String.valueOf(k)+": "+title[k]);
                     k++;
                 }
+                else if(array[i].equals("link")){
+                    link[l] = array[i+2];
+                    //Log.v("출력 data -for문: ", String.valueOf(l)+": "+link[l]);
+                    l++;
+                }
             }
             tlist.getcosTitle(title,k);
+            tlist.getcosLink(link,l);
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
@@ -119,6 +126,10 @@ public class ApiExamSearchShop extends Thread{
     public static class CosmeticList{ //화장품 목록을 가져오도록 구성한 클래스. readBody에서 호출함.
         public static String[] costitle=new String[100];
         public static int costitlelength;
+
+        public static String[] coslink=new String[100];
+        public static int coslinklength;
+
         public static void getcosTitle(String[] ctitle, int ctlength) {
             costitlelength = ctlength;
             for (int i = 0; i < costitlelength; i++) {
@@ -127,6 +138,16 @@ public class ApiExamSearchShop extends Thread{
             /*for (int i = 0; i < costitlelength; i++) {
                 Log.v("ApiExamSearchShop 클래스 Class", costitle[i]);
             }*/
+        }
+
+        public static void getcosLink(String[] ctitle, int ctlength) {
+            coslinklength = ctlength;
+            for (int i = 0; i < coslinklength; i++) {
+                coslink[i] = ctitle[i];
+            }
+//            for (int i = 0; i < costitlelength; i++) {
+//                Log.v("ApiExamSearchShop 클래스 Class-링크들", coslink[i]);
+//            }
         }
     }
 
