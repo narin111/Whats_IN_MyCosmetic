@@ -278,29 +278,54 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 switch (checkedId){
                     case R.id.radioButton:
                         Log.v("라디오 그룹", "매우만족");
-                        inputScore(100);
-                        //Toast.makeText(getActivity(),"매우만족 선택",Toast.LENGTH_SHORT).show();
-                        break;
+                        if(Flag1==0){
+                            Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else{
+                            inputScore(100);
+                            break;
+                        }
                     case R.id.radioButton2:
                         Log.v("라디오 그룹", "만족");
-                        inputScore(75);
-                        //Toast.makeText(getActivity(),"만족 선택",Toast.LENGTH_SHORT).show();
-                        break;
+                        if(Flag1==0){
+                            Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else {
+                            inputScore(75);
+                            break;
+                        }
                     case R.id.radioButton3:
                         Log.v("라디오 그룹", "ㅂㅌ");
-                        inputScore(50);
-                        //Toast.makeText(getActivity(),"보통 선택",Toast.LENGTH_SHORT).show();
-                        break;
+                        if(Flag1==0){
+                            Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else {
+                            inputScore(50);
+                            break;
+                        }
                     case R.id.radioButton4:
-                        Log.v("라디오 그룹", "ㅂ만족");
-                        inputScore(25);
-                        //Toast.makeText(getActivity(),"불만족 선택",Toast.LENGTH_SHORT).show();
-                        break;
+                        Log.v("라디오 그룹", "불만두");
+                        if(Flag1==0){
+                            Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else {
+                            inputScore(25);
+                            break;
+                        }
                     case R.id.radioButton5:
                         Log.v("라디오 그룹", "매우 ㅂ만족");
-                        inputScore(1);
-                        //Toast.makeText(getActivity(),"매우 불만족 선택",Toast.LENGTH_SHORT).show();
-                        break;
+                        if(Flag1==0){
+                            Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else {
+                            inputScore(0);
+                            break;
+                        }
                 }
 
             }
@@ -734,7 +759,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
-                    textskintype.append(checkIng[i]);
+                    textskintype.append(checkIng[i]+" ");
                 }
                 textskintype.append("\n");
             }
@@ -742,7 +767,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 textskintype.append("\n결과주의\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
-                    textskintype.append(checkIng[i]);
+                    textskintype.append(checkIng[i]+" ");
                 }
             }
             for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
