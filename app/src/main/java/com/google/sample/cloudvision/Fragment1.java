@@ -218,19 +218,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     }
 
-    private void InsertDBAllergy(String name, String fileDB,String userAll){
-        setDB(this, fileDB);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getWritableDatabase();
-        Log.v("알러지 Helper ",setAllergy);
-        ContentValues values = new ContentValues();
-        values.put("allergyName", setAllergy);
-        db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
-    }
-
-    String setAllergy; //알러지 담아오는 변수
-
     RadioGroup radiog; //라디오그룹
 
     @Override
