@@ -303,7 +303,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     public void onClick(View view){ ///추천도 성분조회 버튼 클릭 시 알림창 띄움
         switch(view.getId()){
-            case R.id.buttonDB:
+            case R.id.buttonDB: ////앱종료 방지하기
                 Log.v("디비버튼", "눌림");
                 ShowDBInfo(DBname, fileDBname);
                 check1.IGcheck();
