@@ -69,6 +69,8 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -102,10 +104,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
-
-    //private static String[] ingScore;
-
-    //public String[] ingScore = new String[100];
 
     private TextView mImageDetails;
     private ImageView mMainImage;
@@ -227,19 +225,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     }
 
-    private void InsertDBAllergy(String name, String fileDB, String userAll) {
-        setDB(this, fileDB);
-        mHelper = new ProductDBHelper(getActivity(), fileDB);
-        db = mHelper.getWritableDatabase();
-        Log.v("알러지 Helper ", setAllergy);
-        ContentValues values = new ContentValues();
-        values.put("allergyName", setAllergy);
-        db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ", userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
-    }
-
-    String setAllergy; //알러지 담아오는 변수
-
     RadioGroup radiog; //라디오그룹
 
     @Override
@@ -265,7 +250,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            //AlertDialog.Builder builder = new AlertDialog.Builder(Fragment1.this);
+            //CropImage.activity().start(getContext(),this);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder
                     .setMessage(R.string.dialog_select_prompt)
@@ -347,12 +332,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void cropImage(){
+        CropImage.activity().start(getContext(),this);
+    }
 
     public void startGalleryChooser() {
         if (PermissionUtils.requestPermission(getActivity(), GALLERY_PERMISSIONS_REQUEST, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.putExtra("crop",true);
             startActivityForResult(Intent.createChooser(intent, "Select a photo"),
                     GALLERY_IMAGE_REQUEST);
         }
@@ -381,10 +370,18 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            uploadImage(data.getData());
-        } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null &&requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK){
+                Uri resultUri = result.getUri();
+                uploadImage(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+            //uploadImage(data.getData());
+        } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK){//&&requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
+            //CropImage.ActivityResult result1 = CropImage.getActivityResult(photoUri);
             uploadImage(photoUri);
         }
     }
@@ -443,12 +440,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     protected void initializeVisionRequest(VisionRequest<?> visionRequest)
                             throws IOException {
                         super.initializeVisionRequest(visionRequest);
-
                         String packageName = getActivity().getPackageName();
                         visionRequest.getRequestHeaders().set(ANDROID_PACKAGE_HEADER, packageName);
-
                         String sig = PackageManagerUtils.getSignature(getActivity().getPackageManager(), packageName);
-
                         visionRequest.getRequestHeaders().set(ANDROID_CERT_HEADER, sig);
                     }
                 };
@@ -478,7 +472,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             // add the features we want
             annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                 Feature labelDetection = new Feature();
-                //labelDetection.setType("LABEL_DETECTION");
                 labelDetection.setType("TEXT_DETECTION");
                 labelDetection.setMaxResults(MAX_LABEL_RESULTS);
                 add(labelDetection);
@@ -597,7 +590,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         return message;
     }
 
-    /////////////////////////////////
     //효민
     public static class ingredientDBcheck { //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
@@ -659,8 +651,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    /////////////////////////////////
-    //나린 //안드로이드 오류해결 확인
     //나린
 
     public static class SkinTypeDBcheck { //이미지 성분과 데이터베이스 성분들 비교하기.
@@ -875,39 +865,4 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         dialog.show();
 
     }
-
-    ////////////////////////////////
-
-
-    //사진크롭
-//          private void cropImage(Uri photoUri) {
-//            if (tempFile == null) {
-//                try {
-//                    Cursor cursor = null;
-//                    try {
-//                        String[] proj = {MediaStore.Images.Media.DATA};
-//                        assert photoUri != null;
-//                        cursor = getContentResolver().query(photoUri, proj, null, null, null);
-//                        assert cursor != null;
-//                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//                        cursor.moveToFirst();
-//                        tempFile = new File(cursor.getString(column_index));
-//                        mCurrentPhotoPath = tempFile.getAbsolutePath();
-//                    } finally {
-//                        if (cursor != null) {
-//                            cursor.close();
-//                        }
-//                    }
-//                    tempFile = createImageFile();
-//                } catch (IOException e) {
-//                    Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                    e.printStackTrace();
-//                }
-//            }
-//            //크롭 후 저장할 Uri
-//            Uri savingUri = Uri.fromFile(tempFile);
-//            Crop.of(photoUri, savingUri).asSquare().start(this);
-//        }
-
 }
