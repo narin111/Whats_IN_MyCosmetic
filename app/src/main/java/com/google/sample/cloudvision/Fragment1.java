@@ -719,6 +719,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
                     textskintype.append(checkIng[i]);
                 }
+                textskintype.append("\n");
             }
             if(RECorCARE=="주의"){
                 textskintype.append("\n결과주의\n");
