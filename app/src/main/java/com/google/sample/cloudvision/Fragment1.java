@@ -94,6 +94,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
+    public static int ingCheckTextCount=0;
 
     public static int Flag1 = 0;
     private Context context;
@@ -160,8 +161,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         String seffectcol= null;
         String rolecol = null;
 
-
-
         String sql = "Select * FROM " +name; // DBname;
         String resNamesql[] = new String[100];
         String reseffectsql[] = new String[200];
@@ -222,19 +221,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     }
 
-    private void InsertDBAllergy(String name, String fileDB,String userAll){
-        setDB(this, fileDB);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getWritableDatabase();
-        Log.v("알러지 Helper ",setAllergy);
-        ContentValues values = new ContentValues();
-        values.put("allergyName", setAllergy);
-        db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
-    }
-
-    String setAllergy; //알러지 담아오는 변수
-
     RadioGroup radiog; //라디오그룹
 
     @Override
@@ -262,7 +248,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            //AlertDialog.Builder builder = new AlertDialog.Builder(Fragment1.this);
+            ingCheckTextCount++;
+            textDB.setText("");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder
                     .setMessage(R.string.dialog_select_prompt)
@@ -343,9 +330,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     break;
                 }
                 else{
-                    ShowDBInfo(DBname, fileDBname);
-                    check1.IGcheck();
-                    ShowDBscore("scoreinput");////
+                    if(ingCheckTextCount==1) {
+                        ShowDBInfo(DBname, fileDBname);
+                        check1.IGcheck();
+                        ShowDBscore("scoreinput");////
+                    }
+                    else {
+                        Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 }
             case R.id.buttonoil:
@@ -888,6 +880,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         for(int i=0;i<len;i++) {
             Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
         }
+
+        ingCheckTextCount = 0;
     }
     private void showRec(String RecSentence){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
