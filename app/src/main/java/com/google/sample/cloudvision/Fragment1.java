@@ -70,6 +70,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -216,7 +217,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         check2.getTypeDBIG(resNamesql, resTypesql, len); //public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength){
 
         for(int i=0;i<len;i++) {
-            Log.v("showdbinfo_type", resTypesql[i] + ", "+resNamesql[i]);
+            //Log.v("showdbinfo_type", resTypesql[i] + ", "+resNamesql[i]);
         }
 
     }
@@ -657,27 +658,29 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 DBRole[i] = dbRO[i];
             }
             for(int i=0;i<dbArrLength;i++) {
-                Log.v("데이터베이스 출력", DBIngredeint[i] + ", "+DBSEffect[i]+ ", "+DBRole[i]);
+                //Log.v("데이터베이스 출력", DBIngredeint[i] + ", "+DBSEffect[i]+ ", "+DBRole[i]);
             }
         }
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         public static void IGcheck(){
             textDB.setText("");
 
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+            /*for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                 Log.v("비교 전 출력", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
                 checkIng[i]="";
                 checkEff[i]="";
                 checkRol[i]="";
-            }
+            }*/
 
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
                         checkIng[checkCount] = DBIngredeint[j];
+                        Log.v("비교", checkIng[i]+" "+DBIngredeint[j]);
                         checkEff[checkCount] = DBSEffect[j];
                         checkRol[checkCount] = DBRole[j];
                         checkCount++; //유해성분 개수
+
                     }
                 }
             }
@@ -689,6 +692,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
                 }
             }
+
+            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                //Log.v("비교 전 출력", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
+                checkIng[i]="";
+                checkEff[i]="";
+                checkRol[i]="";
+            }
+            checkCount = 0;
         }
     }
 
@@ -746,10 +757,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     //if (imageIngredient[i].equals(DBIngredient[j]) && skintype.equals(DBType[i])) { //이미지, DB성분명 비교해서 문자열 배열에 저장
                     //if (imageIngredient[i].equals(DBIngredient[j])) {
                     if(skintype.equals(DBType[j])){
-                        Log.v("출력출력111111: ", imageIngredient[i]+DBType[j]);
+                        //Log.v("출력출력111111: ", imageIngredient[i]+DBType[j]);
                         //if(skintype.equals(DBType[j])){
                         if (imageIngredient[i].equals(DBIngredient[j])) {
-                            Log.v("출력출력출력: ", imageIngredient[i]);
+                            //Log.v("출력출력출력: ", imageIngredient[i]);
                             checkIng[checkCount] = DBIngredient[j];
                             checkCount++; //유해성분 개수
                         }
@@ -788,12 +799,12 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //Log.v("점수:", String.valueOf(inscore));
         setDB(this, "scoreinput.db");
         int len = ingScorelen;
-        Log.v("성분잘받아짐?", ingScore[0]);
+        //Log.v("성분잘받아짐?", ingScore[0]);
         mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
         db = mHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         for(int i=0; i<len; i++){
-            Log.v("포문 확인","확인확인");///
+            //Log.v("포문 확인","확인확인");///
             //Log.v("출력", ingScore[i]);
             values.put("ingredient", ingScore[i]);
             values.put("score", inscore);
@@ -828,7 +839,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
 
         for(int j=0; j<len; j++){
-            Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]);
+            //Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]);
         }
 
         int samenum = resultname.length; //사용자만족도DB랑 사진성분이랑 같은 개수
