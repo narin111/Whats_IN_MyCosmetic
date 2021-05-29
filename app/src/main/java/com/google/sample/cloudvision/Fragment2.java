@@ -146,6 +146,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         ShowDB_Allergy(DBnameAll, fileDBname_All);
 
         edittextA = view2.findViewById(R.id.editTextAllergy); //알러지 받아오는 edittext
+
         Button buttonAcre = (Button) view2.findViewById(R.id.buttonAC); //알러지 추가하는
         buttonAcre.setOnClickListener(this);
 
@@ -161,6 +162,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         switch(view2.getId()){
             case R.id.buttonAC:
                 setAllergy = edittextA.getText().toString(); //알러지 이름 가져옴
+                edittextA.setText(null);
                 Log.v("알러지 가져옴",setAllergy);
                 //알러지를 db에 추가함.
                 InsertDBAllergy(DBnameAll, fileDBname_All,setAllergy);
@@ -200,6 +202,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
         public static void getDBIGall(String[] dbIG, int dblength){
+            textViewDB.setText("");
             dbArrLength = dblength;
             for(int i=0;i<dbArrLength;i++){
                 DBAllergy[i] = dbIG[i];
@@ -213,6 +216,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         public static void IGcheckall(){
+            textviewA.setText("");
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIng[i].equals(DBAllergy[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
