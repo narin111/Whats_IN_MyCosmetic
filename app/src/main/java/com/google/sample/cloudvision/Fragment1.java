@@ -702,6 +702,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 checkRol[i]="";
             }
             checkCount = 0;
+            Flag1 = 0;
         }
     }
 
