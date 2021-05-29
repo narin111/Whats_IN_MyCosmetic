@@ -17,15 +17,20 @@
 package com.google.sample.cloudvision;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,6 +38,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -66,6 +72,7 @@ import com.google.api.services.vision.v1.model.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,15 +113,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     private static TextView textskintype;
 
     public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
+
     public static void setDB(Fragment1 ctx, String fileDB) {
         File folder = new File(ROOT_DIR);
-        if(folder.exists()) {
+        if (folder.exists()) {
         } else {
             folder.mkdirs();
         }
         AssetManager assetManager = ctx.getResources().getAssets();
         // db파일 이름 적어주기
-        File outfile = new File(ROOT_DIR+fileDB); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile = new File(ROOT_DIR + fileDB); //// 이부분 모르겠다. helper에도 이름 추가하기?
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
@@ -129,7 +137,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 fo = new FileOutputStream(outfile);
                 fo.write(tempdata);
                 fo.close();
-            } else {}
+            } else {
+            }
         } catch (IOException e) {
 
         }
@@ -144,35 +153,35 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     String fileDBname = "harmful.db";
     String fileDBname_REC = "forthisType.db";
-    String fileDBname_CARE= "TypeCareful.db";
+    String fileDBname_CARE = "TypeCareful.db";
 
 
-    private void ShowDBInfo(String name, String fileDB){
+    private void ShowDBInfo(String name, String fileDB) {
         //Log.v("dbname: ",  name);
         setDB(this, fileDB);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getReadableDatabase();
+        mHelper = new ProductDBHelper(getActivity(), fileDB);
+        db = mHelper.getReadableDatabase();
 
-        int len=0;//배열들 길이
-        String namecol= null;
-        String seffectcol= null;
+        int len = 0;//배열들 길이
+        String namecol = null;
+        String seffectcol = null;
         String rolecol = null;
 
-        String sql = "Select * FROM " +name; // DBname;
+        String sql = "Select * FROM " + name; // DBname;
         String resNamesql[] = new String[100];
         String reseffectsql[] = new String[200];
         String resrolesql[] = new String[100];
 
-        cursor = db.rawQuery(sql , null);
+        cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            namecol= cursor.getString(0);
+            namecol = cursor.getString(0);
             seffectcol = cursor.getString(1);
             rolecol = cursor.getString(2);
             resNamesql[len] = namecol;
             reseffectsql[len] = seffectcol;
             resrolesql[len] = rolecol;
             len++;
-            }
+        }
         //Log.v("first: " , namecol);
         check1.getDBIG(resNamesql, reseffectsql, resrolesql, len);
         //for(int i=0;i<len;i++) {
@@ -182,27 +191,27 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     /////
 
-    private void ShowDBInfo_Type(String name, String fileDB){
+    private void ShowDBInfo_Type(String name, String fileDB) {
 
-        Log.v("dbname: ",  name);
+        Log.v("dbname: ", name);
         Log.v("디비파일 이름 확인", fileDB);
         setDB(this, fileDB);//setDB_Type(this);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getReadableDatabase();
+        mHelper = new ProductDBHelper(getActivity(), fileDB);
+        db = mHelper.getReadableDatabase();
 
-        int len=0;//배열들 길이
-        String namecol= null;
+        int len = 0;//배열들 길이
+        String namecol = null;
         String typecol = null;
 
-        String sql = "Select * FROM " +name; // DBname;
+        String sql = "Select * FROM " + name; // DBname;
         String resNamesql[] = new String[100];
         String resTypesql[] = new String[100];
 
-        cursor = db.rawQuery(sql , null);
+        cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
 
             typecol = cursor.getString(0);
-            namecol= cursor.getString(1);
+            namecol = cursor.getString(1);
 
             resTypesql[len] = typecol;
             resNamesql[len] = namecol;
@@ -212,21 +221,21 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         check2.getTypeDBIG(resNamesql, resTypesql, len); //public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength){
 
-        for(int i=0;i<len;i++) {
-            Log.v("showdbinfo_type", resTypesql[i] + ", "+resNamesql[i]);
+        for (int i = 0; i < len; i++) {
+            Log.v("showdbinfo_type", resTypesql[i] + ", " + resNamesql[i]);
         }
 
     }
 
-    private void InsertDBAllergy(String name, String fileDB,String userAll){
+    private void InsertDBAllergy(String name, String fileDB, String userAll) {
         setDB(this, fileDB);
-        mHelper=new ProductDBHelper(getActivity(), fileDB);
-        db =mHelper.getWritableDatabase();
-        Log.v("알러지 Helper ",setAllergy);
+        mHelper = new ProductDBHelper(getActivity(), fileDB);
+        db = mHelper.getWritableDatabase();
+        Log.v("알러지 Helper ", setAllergy);
         ContentValues values = new ContentValues();
         values.put("allergyName", setAllergy);
         db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
+        Log.v("알러지 db에 넣음: ", userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
     }
 
     String setAllergy; //알러지 담아오는 변수
@@ -269,7 +278,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         radiog.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.radioButton:
                         Log.v("라디오 그룹", "매우만족");
                         inputScore(100);
@@ -303,8 +312,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         return view1;
     }
 
-    public void onClick(View view){ ///추천도 성분조회 버튼 클릭 시 알림창 띄움
-        switch(view.getId()){
+    public void onClick(View view) { ///추천도 성분조회 버튼 클릭 시 알림창 띄움
+        switch (view.getId()) {
             case R.id.buttonDB:
                 Log.v("디비버튼", "눌림");
                 ShowDBInfo(DBname, fileDBname);
@@ -375,7 +384,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             uploadImage(data.getData());
         } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Uri photoUri = FileProvider.getUriForFile(getActivity(),  getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
+            Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
             uploadImage(photoUri);
         }
     }
@@ -561,9 +570,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         String message = "I found these things:\n\n";
         List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
         if (labels != null) {
-            message  = labels.get(0).getDescription();
+            message = labels.get(0).getDescription();
         } else {
-            message  = "nothing";
+            message = "nothing";
         }
         ///// ingredient 배열에 단어자른거 저장
         Log.v("출력 ", message);
@@ -571,9 +580,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         message = message.replace("\n", ""); // 개행문자 없애기
         String ingredient[] = message.split(","); // , 기준으로 단어 자르기 // ,으로 표기 안했다면...?
 
-        for(int i=0;i<ingredient.length; i++){
+        for (int i = 0; i < ingredient.length; i++) {
             Log.v("단어자르기", ingredient[i]); // 로그로 확인
-            ingScore[i]=ingredient[i];
+            ingScore[i] = ingredient[i];
 
         }
         /////
@@ -587,9 +596,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //ShowDBscore("scoreinput");
         return message;
     }
+
     /////////////////////////////////
     //효민
-    public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
+    public static class ingredientDBcheck { //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
         private static String DBIngredeint[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[성분명]
@@ -603,33 +613,36 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
+
         //1. 사진에서 성분가져온걸 저장하는 함수.
-        public static void getImageIG(String[] imageIG, int IGlength){
+        public static void getImageIG(String[] imageIG, int IGlength) {
             imageArrLength = IGlength;
-            for(int i=0;i<imageArrLength;i++){
+            for (int i = 0; i < imageArrLength; i++) {
                 imageIngredient[i] = imageIG[i];
             }
-            for(int i=0;i<imageArrLength;i++) {
+            for (int i = 0; i < imageArrLength; i++) {
                 Log.v("이미지성분", imageIngredient[i]);
             }
         }
+
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
         //resultNamesql, resultseffectsql, resultrolesql, len
-        public static void getDBIG(String[] dbIG, String[] dbSE, String[] dbRO, int dblength){
+        public static void getDBIG(String[] dbIG, String[] dbSE, String[] dbRO, int dblength) {
 
             dbArrLength = dblength;
-            for(int i=0;i<dbArrLength;i++){
+            for (int i = 0; i < dbArrLength; i++) {
                 DBIngredeint[i] = dbIG[i];
                 DBSEffect[i] = dbSE[i];
                 DBRole[i] = dbRO[i];
             }
-            for(int i=0;i<dbArrLength;i++) {
-                Log.v("데이터베이스 출력", DBIngredeint[i] + ", "+DBSEffect[i]+ ", "+DBRole[i]);
+            for (int i = 0; i < dbArrLength; i++) {
+                Log.v("데이터베이스 출력", DBIngredeint[i] + ", " + DBSEffect[i] + ", " + DBRole[i]);
             }
         }
+
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
-        public static void IGcheck(){
-            for(int i=0;i<imageArrLength;i++) {
+        public static void IGcheck() {
+            for (int i = 0; i < imageArrLength; i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
                         checkIng[checkCount] = DBIngredeint[j];
@@ -639,9 +652,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
-                textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
+            for (int i = 0; i < checkCount; i++) { //비교결과 로그출력.
+                Log.v("비교결과", "결과" + i + ": " + checkIng[i] + "-유해한 이유: " + checkEff[i] + ", 역할: " + checkRol[i]);
+                textDB.append("결과" + (i + 1) + ": " + checkIng[i] + "-유해한 이유: " + checkEff[i] + ", 역할: " + checkRol[i] + " \n");
             }
         }
     }
@@ -650,7 +663,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     //나린 //안드로이드 오류해결 확인
     //나린
 
-    public static class SkinTypeDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기.
+    public static class SkinTypeDBcheck { //이미지 성분과 데이터베이스 성분들 비교하기.
 
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
@@ -663,23 +676,24 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 개수
-        
+
         //1. 사진에서 성분가져온걸 저장하는 함수.
-        public static void getImageIG(String[] imageIG, int IGlength){
+        public static void getImageIG(String[] imageIG, int IGlength) {
             imageArrLength = IGlength;
-            for(int i=0;i<imageArrLength;i++){
+            for (int i = 0; i < imageArrLength; i++) {
                 imageIngredient[i] = imageIG[i];
             }
-            for(int i=0;i<imageArrLength;i++) {
+            for (int i = 0; i < imageArrLength; i++) {
                 Log.v("이미지성분 피부타입클래스", imageIngredient[i]);
             }
         }
+
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
         //resultNamesql, resultseffectsql, resultrolesql, len
-        public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength){
+        public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength) {
             //public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength, String RECorCARE){
             dbArrLength = dblength;
-            for(int i=0;i<dbArrLength;i++){
+            for (int i = 0; i < dbArrLength; i++) {
                 DBIngredient[i] = dbIG[i];
                 DBType[i] = dbType[i];
                 //DBSEffect[i] = dbSE[i];
@@ -688,18 +702,19 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
 
         }
+
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         //public static void IGcheck_Type(String skintype){
-        public static void IGcheck_Type(String skintype, String RECorCARE){
+        public static void IGcheck_Type(String skintype, String RECorCARE) {
             Log.v("타입파라미터 확인", skintype);
-            for(int i=0;i<imageArrLength;i++) {
+            for (int i = 0; i < imageArrLength; i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     //Log.v("디비전체출력: ", DBType[i]);
-                    if(skintype.equals(DBType[i])) Log.v("타입일치 확인 if: ", DBType[j] + skintype);
+                    if (skintype.equals(DBType[i])) Log.v("타입일치 확인 if: ", DBType[j] + skintype);
                     //if (imageIngredient[i].equals(DBIngredient[j]) && skintype.equals(DBType[i])) { //이미지, DB성분명 비교해서 문자열 배열에 저장
                     //if (imageIngredient[i].equals(DBIngredient[j])) {
-                    if(skintype.equals(DBType[j])){
-                        Log.v("출력출력111111: ", imageIngredient[i]+DBType[j]);
+                    if (skintype.equals(DBType[j])) {
+                        Log.v("출력출력111111: ", imageIngredient[i] + DBType[j]);
                         //if(skintype.equals(DBType[j])){
                         if (imageIngredient[i].equals(DBIngredient[j])) {
                             Log.v("출력출력출력: ", imageIngredient[i]);
@@ -710,114 +725,111 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-           
-            if(RECorCARE=="추천"){
+
+            if (RECorCARE == "추천") {
                 textskintype.append("결과추천\n");
-                for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                    Log.v("비교결과", "결과"+i+": "+checkIng[i]);
+                for (int i = 0; i < checkCount; i++) { //비교결과 로그출력.
+                    Log.v("비교결과", "결과" + i + ": " + checkIng[i]);
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
                     textskintype.append(checkIng[i]);
                 }
             }
-            if(RECorCARE=="주의"){
+            if (RECorCARE == "주의") {
                 textskintype.append("\n결과주의\n");
-                for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                    Log.v("비교결과", "결과"+i+": "+checkIng[i]);
+                for (int i = 0; i < checkCount; i++) { //비교결과 로그출력.
+                    Log.v("비교결과", "결과" + i + ": " + checkIng[i]);
                     textskintype.append(checkIng[i]);
                 }
             }
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("checkIng 초기화", "초기화"+i+": "+checkIng[i]);
-                checkIng[i]="";
+            for (int i = 0; i < checkCount; i++) { //비교결과 로그출력.
+                Log.v("checkIng 초기화", "초기화" + i + ": " + checkIng[i]);
+                checkIng[i] = "";
             }
             ////
         }
     }
 
-
-    public void inputScore(int inscore){
+    public void inputScore(int inscore) {
         //Log.v("점수:", String.valueOf(inscore));
         setDB(this, "scoreinput.db");
         int len = ingScorelen;
         Log.v("성분잘받아짐?", ingScore[0]);
-        mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
+        mHelper = new ProductDBHelper(getActivity(), "scoreinput.db");
         db = mHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        for(int i=0; i<len; i++){
-            Log.v("포문 확인","확인확인");///
+        for (int i = 0; i < len; i++) {
+            Log.v("포문 확인", "확인확인");///
             //Log.v("출력", ingScore[i]);
             values.put("ingredient", ingScore[i]);
             values.put("score", inscore);
             db.insert("scoreinput", null, values);
         }
-        Log.v("포문끝","확인");
+        Log.v("포문끝", "확인");
         //ShowDBscore("scoreinput");
     }
 
-    public void CntScore(String[] nameing, int[] scoreing, int dblen){
+    public void CntScore(String[] nameing, int[] scoreing, int dblen) {
         int len = ingScorelen; //이미지성분길이
         String[] resultname = new String[100];
         int[] resultscore = new int[100];
-        int cnt=0;
-        int ScoreSum=0;
-        for(int i=0; i<len; i++){
-            for(int j=0;j<dblen;j++){ //성분이미지랑 비교해서 사용자만족도DB와 같은 성분만 모두 합
-                if(ingScore[i].equals(nameing[j])){
-                    Log.v("ingScore검사",ingScore[i]);
+        int cnt = 0;
+        int ScoreSum = 0;
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < dblen; j++) { //성분이미지랑 비교해서 사용자만족도DB와 같은 성분만 모두 합
+                if (ingScore[i].equals(nameing[j])) {
+                    Log.v("ingScore검사", ingScore[i]);
                     cnt++;
-                    ScoreSum+=scoreing[j];
+                    ScoreSum += scoreing[j];
                     Log.v("scoreing 더해짐", String.valueOf(scoreing[j]));
                     Log.v("더해짐", String.valueOf(ScoreSum));
                 }
                 Log.v("총점", String.valueOf(ScoreSum));
-                resultname[i]=ingScore[i];
-                if(cnt!=0)resultscore[i]=ScoreSum/cnt;
-                else if(cnt==0) resultscore[i]=ScoreSum/1;
+                resultname[i] = ingScore[i];
+                if (cnt != 0) resultscore[i] = ScoreSum / cnt;
+                else if (cnt == 0) resultscore[i] = ScoreSum / 1;
             }
-            cnt=0;
-            ScoreSum=0;
+            cnt = 0;
+            ScoreSum = 0;
         }
 
-        for(int j=0; j<len; j++){
-            Log.v("&&&&점수통계결과&&&&", resultname[j]+resultscore[j]);
+        for (int j = 0; j < len; j++) {
+            Log.v("&&&&점수통계결과&&&&", resultname[j] + resultscore[j]);
         }
 
         int samenum = resultname.length; //사용자만족도DB랑 사진성분이랑 같은 개수
-        int satisavg=0;
-        for(int k=0; k<samenum; k++){
-            if(resultscore[k]>=50){
+        int satisavg = 0;
+        for (int k = 0; k < samenum; k++) {
+            if (resultscore[k] >= 50) {
                 satisavg++;
                 Log.v("얼마나 포함?", String.valueOf(satisavg));
             }
         }
 
-        int resultnum = (satisavg*100/len); //만족도높은 성분/전체 비율
+        int resultnum = (satisavg * 100 / len); //만족도높은 성분/전체 비율
         //String result = String.format("%.2f", resultnum);
 
         ////성분이미지와 얼마나 일치하는지 비교
         //showRec("만족도가 높았던 화장품의 성분들이"+samenum+"일치해요!");
-        showRec("만족도가 높았던 화장품의 성분들이 \n"+resultnum+" % 만큼 포함되어 있어요!");
+        showRec("만족도가 높았던 화장품의 성분들이 \n" + resultnum + " % 만큼 포함되어 있어요!");
 
-        for(int j=0; j<len; j++){
-            resultname[j]="";
-            resultscore[j]=0;
+        for (int j = 0; j < len; j++) {
+            resultname[j] = "";
+            resultscore[j] = 0;
         }
-
 
 
     }
 
+    private void ShowDBscore(String name) {
 
-    private void ShowDBscore(String name){
-
-        Log.v("dbname: ",  "score");
+        Log.v("dbname: ", "score");
 
         setDB(this, "scoreinput.db");//setDB_Type(this);
-        mHelper=new ProductDBHelper(getActivity(), "scoreinput.db");
-        db =mHelper.getReadableDatabase();
+        mHelper = new ProductDBHelper(getActivity(), "scoreinput.db");
+        db = mHelper.getReadableDatabase();
 
-        int len=0;//배열들 길이
-        String namecol= null;
+        int len = 0;//배열들 길이
+        String namecol = null;
         int scorecol = 0;
 
         String sql = "Select * FROM " + name; // DBname;
@@ -825,13 +837,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         int[] Scoreing = new int[100];
 
 
-        cursor = db.rawQuery(sql , null);
+        cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             Log.v("여기까지", len + "가나요");
             namecol = cursor.getString(0);
-            scorecol= cursor.getInt(1);
+            scorecol = cursor.getInt(1);
 
-            Log.v("타입:",namecol);
+            Log.v("타입:", namecol);
             Log.v("점수", String.valueOf(scorecol));
 
             Nameing[len] = namecol; //사용자가 사용했던 화장품 성분배열
@@ -840,20 +852,21 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
             len++;
         }
-        CntScore(Nameing, Scoreing,len);
-        for(int i=0;i<len;i++) {
-            Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
+        CntScore(Nameing, Scoreing, len);
+        for (int i = 0; i < len; i++) {
+            Log.v("score 성분 db", Nameing[i] + String.valueOf(Scoreing[i]));
         }
     }
-    private void showRec(String RecSentence){
+
+    private void showRec(String RecSentence) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
         builder.setTitle("사용자 맞춤추천");
         builder.setMessage(RecSentence);
 
         //builder.setIcon(R.drawable.ic_dialog_alert);
 
-        builder.setPositiveButton("확인했어요!", new DialogInterface.OnClickListener(){ //실행은 안됨(textview지저분)
-            public void onClick(DialogInterface dialog, int which){
+        builder.setPositiveButton("확인했어요!", new DialogInterface.OnClickListener() { //실행은 안됨(textview지저분)
+            public void onClick(DialogInterface dialog, int which) {
                 String message = "추천도를 확인했습니다";
 
             }
@@ -864,4 +877,37 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
     ////////////////////////////////
+
+
+    //사진크롭
+//          private void cropImage(Uri photoUri) {
+//            if (tempFile == null) {
+//                try {
+//                    Cursor cursor = null;
+//                    try {
+//                        String[] proj = {MediaStore.Images.Media.DATA};
+//                        assert photoUri != null;
+//                        cursor = getContentResolver().query(photoUri, proj, null, null, null);
+//                        assert cursor != null;
+//                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                        cursor.moveToFirst();
+//                        tempFile = new File(cursor.getString(column_index));
+//                        mCurrentPhotoPath = tempFile.getAbsolutePath();
+//                    } finally {
+//                        if (cursor != null) {
+//                            cursor.close();
+//                        }
+//                    }
+//                    tempFile = createImageFile();
+//                } catch (IOException e) {
+//                    Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                    e.printStackTrace();
+//                }
+//            }
+//            //크롭 후 저장할 Uri
+//            Uri savingUri = Uri.fromFile(tempFile);
+//            Crop.of(photoUri, savingUri).asSquare().start(this);
+//        }
+
 }
