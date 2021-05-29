@@ -334,9 +334,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         ShowDBInfo(DBname, fileDBname);
                         check1.IGcheck();
                         ShowDBscore("scoreinput");////
+                        break;
                     }
                     else {
                         Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
+                        ingCheckTextCount=0;
                     }
                     break;
                 }
@@ -661,9 +663,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         public static void IGcheck(){
             textDB.setText("");
-//            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-//                Log.v("여기가 이상한가?", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
-//            }
+
+            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                Log.v("비교 전 출력", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
+                checkIng[i]="";
+                checkEff[i]="";
+                checkRol[i]="";
+            }
+
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
@@ -674,10 +681,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
+            //if(checkIng.equals(null)) textDB.append("의심되는 유해성분이 없습니다.\n");
             if(checkIng[0]==null) textDB.append("의심되는 유해성분이 없습니다.\n");
-            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
-                textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
+            else{
+                for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                    Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
+                    textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
+                }
             }
         }
     }
