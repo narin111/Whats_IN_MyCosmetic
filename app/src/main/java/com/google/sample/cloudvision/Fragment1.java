@@ -328,6 +328,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 Log.v("디비버튼", "눌림");
                 if(Flag1==0){
                     Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                    ingCheckTextCount=1;
                     break;
                 }
                 else{
@@ -340,8 +341,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     else {
                         Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
                         ingCheckTextCount=0;
+                        break;
                     }
-                    break;
+
                 }
             case R.id.buttonoil:
                 Log.v("지성버튼", "눌림");
