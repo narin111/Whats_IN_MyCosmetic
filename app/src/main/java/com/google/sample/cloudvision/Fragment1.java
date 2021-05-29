@@ -627,6 +627,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         public static void IGcheck(){
+            textDB.setText("");
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
@@ -689,6 +690,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //3. 이미지 성분명과 데이터베이스 성분명 비교하고 결과 출력하는 함수.
         //public static void IGcheck_Type(String skintype){
         public static void IGcheck_Type(String skintype, String RECorCARE){
+
             Log.v("타입파라미터 확인", skintype);
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
@@ -710,6 +712,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             }
            
             if(RECorCARE=="추천"){
+                textskintype.setText("");
                 textskintype.append("결과추천\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
