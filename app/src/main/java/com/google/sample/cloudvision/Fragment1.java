@@ -93,6 +93,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
+    public static int ingCheckTextCount=0;
 
     //private static String[] ingScore;
 
@@ -155,8 +156,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         String namecol= null;
         String seffectcol= null;
         String rolecol = null;
-
-
 
         String sql = "Select * FROM " +name; // DBname;
         String resNamesql[] = new String[100];
@@ -243,7 +242,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            //AlertDialog.Builder builder = new AlertDialog.Builder(Fragment1.this);
+            ingCheckTextCount++;
+            textDB.setText("");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder
                     .setMessage(R.string.dialog_select_prompt)
@@ -292,11 +292,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     public void onClick(View view){ ///추천도 성분조회 버튼 클릭 시 알림창 띄움
         switch(view.getId()){
-            case R.id.buttonDB: ////앱종료 방지하기
-                Log.v("디비버튼", "눌림");
-                ShowDBInfo(DBname, fileDBname);
-                check1.IGcheck();
-                ShowDBscore("scoreinput");////
+            case R.id.buttonDB:
+                if(ingCheckTextCount==1) {
+                    Log.v("디비버튼", "눌림");
+                    ShowDBInfo(DBname, fileDBname);
+                    check1.IGcheck();
+                    ShowDBscore("scoreinput");////
+                }
+                else {
+                    Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.buttonoil:
                 Log.v("지성버튼", "눌림");
@@ -836,6 +841,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         for(int i=0;i<len;i++) {
             Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
         }
+
+        ingCheckTextCount = 0;
     }
     private void showRec(String RecSentence){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
