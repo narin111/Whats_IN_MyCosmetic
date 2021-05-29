@@ -638,6 +638,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
+            if(checkIng[0]==null) textDB.append("의심되는 유해성분이 없습니다.\n");
             for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                 Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
                 textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
