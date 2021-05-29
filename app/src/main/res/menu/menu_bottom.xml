@@ -9,18 +9,18 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_email"
-        android:title="성분검색"/>
+        android:title="성분조회"/>
     <item
         android:id="@+id/tab2"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_email"
-        android:title="성분검색"/>
+        android:title="알레르기"/>
 
     <item
         android:id="@+id/tab3"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_email"
-        android:title="성분검색"/>
+        android:title="추천성분"/>
 </menu>

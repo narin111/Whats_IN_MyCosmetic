@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:text="성분 조회"
-                android:backgroundTint="@color/button" />
+                android:backgroundTint="@color/tablebtn"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textViewDB"
@@ -59,7 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/button"
+                    android:backgroundTint="@color/tablebtn"
+                    android:textColor="#FFFFFF"
                     android:text="지성"
                     android:textSize="15dp" />
 
@@ -68,7 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/button"
+                    android:backgroundTint="@color/tablebtn"
+                    android:textColor="#FFFFFF"
                     android:text="건성"
                     android:textSize="15dp" />
 
@@ -77,7 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/button"
+                    android:backgroundTint="@color/tablebtn"
+                    android:textColor="#FFFFFF"
                     android:text="민감성"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -92,7 +96,7 @@
                 android:id="@+id/textViewCS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="화장품 점수를 입력하세요!"
+                android:text="\n사용한 화장품이라면 점수를 입력해주세요!"
                 android:textSize="20sp" />
 
             <RadioGroup
