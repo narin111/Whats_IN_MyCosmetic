@@ -181,7 +181,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
     /////
-
+    //
     private void ShowDBInfo_Type(String name, String fileDB){
 
         Log.v("dbname: ",  name);
