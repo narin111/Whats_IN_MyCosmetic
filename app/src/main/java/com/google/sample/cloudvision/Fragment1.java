@@ -156,6 +156,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         String seffectcol= null;
         String rolecol = null;
 
+
+
         String sql = "Select * FROM " +name; // DBname;
         String resNamesql[] = new String[100];
         String reseffectsql[] = new String[200];
