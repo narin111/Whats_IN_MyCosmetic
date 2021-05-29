@@ -18,6 +18,7 @@ package com.google.sample.cloudvision;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -93,6 +94,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
+
+    public static int Flag1 = 0;
+    private Context context;
 
     //private static String[] ingScore;
 
@@ -249,6 +253,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         btnoil.setOnClickListener(this);
         btnsens.setOnClickListener(this);
 
+        context = container.getContext();
+
         mImageDetails = view1.findViewById(R.id.image_details);
         mMainImage = view1.findViewById(R.id.main_image);
         textDB = view1.findViewById(R.id.textViewDB);
@@ -307,10 +313,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         switch(view.getId()){
             case R.id.buttonDB: ////앱종료 방지하기
                 Log.v("디비버튼", "눌림");
-                ShowDBInfo(DBname, fileDBname);
-                check1.IGcheck();
-                ShowDBscore("scoreinput");////
-                break;
+                if(Flag1==0){
+                    Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else{
+                    ShowDBInfo(DBname, fileDBname);
+                    check1.IGcheck();
+                    ShowDBscore("scoreinput");////
+                    break;
+                }
             case R.id.buttonoil:
                 Log.v("지성버튼", "눌림");
                 ShowDBInfo_Type(DBnameREC, fileDBname_REC);
@@ -612,6 +624,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             for(int i=0;i<imageArrLength;i++) {
                 Log.v("이미지성분", imageIngredient[i]);
             }
+
+            Flag1 = 1;
         }
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
         //resultNamesql, resultseffectsql, resultrolesql, len
