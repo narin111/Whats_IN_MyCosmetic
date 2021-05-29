@@ -56,27 +56,30 @@
 
                 <Button
                     android:id="@+id/buttonoil"
-                    android:layout_width="126dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button"
                     android:text="지성"
-                    android:backgroundTint="@color/button"/>
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/buttondry"
-                    android:layout_width="126dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button"
                     android:text="건성"
-                    android:backgroundTint="@color/button"/>
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/buttonsens"
-                    android:layout_width="126dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button"
                     android:text="민감성"
-                    android:backgroundTint="@color/button"/>
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <TextView
