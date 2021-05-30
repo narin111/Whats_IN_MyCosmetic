@@ -265,6 +265,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         radiog.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Flag1 = 1;
                 switch (checkedId){
                     case R.id.radioButton:
                         Log.v("라디오 그룹", "매우만족");
@@ -274,6 +275,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         }
                         else{
                             inputScore(100);
+                            Flag1 = 0;
                             break;
                         }
                     case R.id.radioButton2:
@@ -284,6 +286,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         }
                         else {
                             inputScore(75);
+                            Flag1 = 0;
                             break;
                         }
                     case R.id.radioButton3:
@@ -294,6 +297,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         }
                         else {
                             inputScore(50);
+                            Flag1 = 0;
                             break;
                         }
                     case R.id.radioButton4:
@@ -304,6 +308,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         }
                         else {
                             inputScore(25);
+                            Flag1 = 0;
                             break;
                         }
                     case R.id.radioButton5:
@@ -314,6 +319,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         }
                         else {
                             inputScore(0);
+                            Flag1 = 0;
                             break;
                         }
                 }
