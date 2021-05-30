@@ -920,7 +920,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
         }
 
-        ingCheckTextCount = 0;
+        ingCheckTextCount = 0; //0으로 초기화
     }
     private void showRec(String RecSentence){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
