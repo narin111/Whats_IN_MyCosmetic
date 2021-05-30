@@ -250,7 +250,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            ingCheckTextCount++;
+            ingCheckTextCount++; //0->1
             textDB.setText("");
             CropImage.activity().start(getContext(), this);
 //            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -328,25 +328,25 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         switch(view.getId()){
             case R.id.buttonDB: ////앱종료 방지하기
                 Log.v("디비버튼", "눌림");
-                if(Flag1==0){
+                if(Flag1==0&&ingCheckTextCount==1){
+                    Log.v("디비버튼 1111", "눌림");
                     Toast.makeText(context, "사진이 완전히 업로드되지 않았습니다.", Toast.LENGTH_SHORT).show();
                     ingCheckTextCount=1;
-                    break;
                 }
-                else{
-                    if(ingCheckTextCount==1) {
-                        ShowDBInfo(DBname, fileDBname);
-                        check1.IGcheck();
-                        ShowDBscore("scoreinput");////
-                        break;
-                    }
-                    else {
-                        Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
-                        ingCheckTextCount=0;
-                        break;
-                    }
-
+                else if(Flag1==1&&ingCheckTextCount==1) {
+                    Log.v("디비버튼 222", "눌림");
+                    ShowDBInfo(DBname, fileDBname);
+                    check1.IGcheck();//1->0
+                    ShowDBscore("scoreinput");
+                    ingCheckTextCount = 0; //0으로 초기화
                 }
+                else if(ingCheckTextCount==0) {//(Flag1==1&&ingCheckTextCount==0) {
+                    Log.v("디비버튼 333", "눌림");
+                    Toast.makeText(getActivity(),"새로운 사진을 선택해주세요!",Toast.LENGTH_SHORT).show();
+                    ingCheckTextCount=0;
+                }
+                Log.v("디비버튼 ee", "눌림");
+                break;
             case R.id.buttonoil:
                 Log.v("지성버튼", "눌림");
                 ShowDBInfo_Type(DBnameREC, fileDBname_REC);
@@ -679,13 +679,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         public static void IGcheck(){
             textDB.setText("");
 
-            /*for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
-                Log.v("비교 전 출력", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
-                checkIng[i]="";
-                checkEff[i]="";
-                checkRol[i]="";
-            }*/
-
             for(int i=0;i<imageArrLength;i++) {
                 for (int j = 0; j < dbArrLength; j++) {
                     if (imageIngredient[i].equals(DBIngredeint[j])) { //이미지 성분명과 DB성분명 비교해서 같을때의 성분명과 유해효과 문자열 배열에 저장.
@@ -919,8 +912,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         for(int i=0;i<len;i++) {
             Log.v("score 성분 db", Nameing[i]+String.valueOf(Scoreing[i]));
         }
-
-        ingCheckTextCount = 0; //0으로 초기화
     }
     private void showRec(String RecSentence){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTh);
