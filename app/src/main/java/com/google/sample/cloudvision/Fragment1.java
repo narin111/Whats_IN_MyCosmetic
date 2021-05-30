@@ -794,7 +794,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
                     //textskintype.append("결과 추천:"+(i+1)+": "+checkIng[i]);
-                    textskintype.append(checkIng[i]+" ");
+                    if(checkIng[i]!=null){
+                        textskintype.append(checkIng[i]+" ");
+                    }
                 }
                 textskintype.append("\n");
             }
@@ -802,12 +804,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 textskintype.append("\n결과주의\n");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]);
-                    textskintype.append(checkIng[i]+" ");
+                    if(checkIng[i]!=null){
+                        textskintype.append(checkIng[i]+" ");
+                    }
                 }
             }
             for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                 Log.v("checkIng 초기화", "초기화"+i+": "+checkIng[i]);
-                checkIng[i]="";
+                checkIng[i]=null;
             }
             ////
         }
