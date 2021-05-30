@@ -229,6 +229,11 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
                 Log.v("알러지 비교결과Class", "결과"+i+": "+checkAll[i]);
                 textviewA.append("결과"+(i+1)+": "+checkAll[i]+" \n");
             }
+
+            for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
+                checkAll[i]="";
+            }
+            checkCount = 0;
         }
     }
 
