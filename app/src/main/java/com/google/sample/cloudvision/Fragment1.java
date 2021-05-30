@@ -693,13 +693,17 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         checkEff[checkCount] = DBSEffect[j];
                         checkRol[checkCount] = DBRole[j];
                         checkCount++; //유해성분 개수
+                        Log.v("유해성분", checkCount+"개수");
 
                     }
                 }
             }
             //if(checkIng.equals(null)) textDB.append("의심되는 유해성분이 없습니다.\n");
-            if(checkIng[0]==null) textDB.append("의심되는 유해성분이 없습니다.\n");
+            if(checkCount==0){
+                textDB.append("의심되는 유해성분이 없습니다.\n");
+            }
             else{
+                Log.v("유해성분", "없있");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
                     textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
@@ -712,6 +716,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 checkEff[i]="";
                 checkRol[i]="";
             }
+
             checkCount = 0;
             Flag1 = 0;
         }
