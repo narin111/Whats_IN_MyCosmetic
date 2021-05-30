@@ -62,6 +62,7 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -251,12 +252,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         fab.setOnClickListener(view -> {
             ingCheckTextCount++;
             textDB.setText("");
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder
-                    .setMessage(R.string.dialog_select_prompt)
-                    .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
-                    .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
-            builder.create().show();
+            CropImage.activity().start(getContext(), this);
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder
+//                    .setMessage(R.string.dialog_select_prompt)
+//                    .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
+//                    .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
+//            builder.create().show();
         });
 
         radiog = (RadioGroup) view1.findViewById(R.id.radioGroup);
@@ -405,14 +407,23 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //크롭 봐보기
 
-        if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            uploadImage(data.getData());
-        } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Uri photoUri = FileProvider.getUriForFile(getActivity(),  getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
-            uploadImage(photoUri);
+        //크롭 봐보기
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                uploadImage(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
         }
+//        if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+//            uploadImage(data.getData());
+//        } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
+//            Uri photoUri = FileProvider.getUriForFile(getActivity(),  getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
+//            uploadImage(photoUri);
+//        }
     }
 
     @Override
