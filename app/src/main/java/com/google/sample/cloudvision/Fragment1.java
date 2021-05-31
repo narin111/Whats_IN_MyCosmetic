@@ -601,7 +601,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         Log.v("출력 ", message);
         message = message.replace(", ", ","); // , 뒤 공백 없애기
         message = message.replace("\n", ""); // 개행문자 없애기
-        String ingredient[] = message.split(","); // , 기준으로 단어 자르기 // ,으로 표기 안했다면...?
+        String ingredient[] = message.split(","); // , 기준으로 단어 자르기
 
         for(int i=0;i<ingredient.length; i++){
             Log.v("단어자르기", ingredient[i]); // 로그로 확인
