@@ -244,7 +244,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view1.findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            ingCheckTextCount++; //0->1
+            ingCheckTextCount=1; //0->1
             textDB.setText("");
             CropImage.activity().start(getContext(), this);
         });
