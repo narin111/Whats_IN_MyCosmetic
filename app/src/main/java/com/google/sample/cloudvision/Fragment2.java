@@ -66,7 +66,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         }
         AssetManager assetManager = ctx.getResources().getAssets();
         // db파일 이름 적어주기
-        File outfile = new File(ROOT_DIR+fileDB); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile = new File(ROOT_DIR+fileDB);
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
@@ -128,7 +128,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         ContentValues values = new ContentValues();
         values.put("allergyName", setAllergy);
         db.insert(name, null, values);
-        Log.v("알러지 db에 넣음: ",userAll); //로그는 출력되지만 insert가 제대로 되는지 모르겠다.
+        Log.v("알러지 db에 넣음: ",userAll);
     }
 
     EditText edittextA; //알러지 받아오는 edittext
@@ -191,7 +191,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
         private static int checkCount = 0; //비교결과 갯수(유해성분 개수)
         //1. 사진에서 성분가져온걸 저장하는 함수.
-        public static void getImageIGall(String[] imageIG, int IGlength){ //Fragment1에서 가져올수 있을지?
+        public static void getImageIGall(String[] imageIG, int IGlength){
             imageArrLength = IGlength;
             for(int i=0;i<imageArrLength;i++){
                 imageIng[i] = imageIG[i];

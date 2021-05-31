@@ -92,7 +92,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
     public static ingredientDBcheck check1; //ingredeintDBcheck 클래스 생성.//비교해보는 클래스
-    public static SkinTypeDBcheck check2;/////////////
+    public static SkinTypeDBcheck check2;
     public static SkinTypeDBcheck check3;
     private static String[] ingScore = new String[100];
     public static int ingScorelen;
@@ -100,10 +100,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     public static int Flag1 = 0;
     private Context context;
-
-    //private static String[] ingScore;
-
-    //public String[] ingScore = new String[100];
 
     private TextView mImageDetails;
     private ImageView mMainImage;
@@ -119,7 +115,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
         AssetManager assetManager = ctx.getResources().getAssets();
         // db파일 이름 적어주기
-        File outfile = new File(ROOT_DIR+fileDB); //// 이부분 모르겠다. helper에도 이름 추가하기?
+        File outfile = new File(ROOT_DIR+fileDB);
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
@@ -185,8 +181,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //}
     }
 
-    /////
-    //
     private void ShowDBInfo_Type(String name, String fileDB){
 
         Log.v("dbname: ",  name);
@@ -253,12 +247,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             ingCheckTextCount++; //0->1
             textDB.setText("");
             CropImage.activity().start(getContext(), this);
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//            builder
-//                    .setMessage(R.string.dialog_select_prompt)
-//                    .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
-//                    .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
-//            builder.create().show();
         });
 
         radiog = (RadioGroup) view1.findViewById(R.id.radioGroup);
@@ -424,12 +412,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 Exception error = result.getError();
             }
         }
-//        if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-//            uploadImage(data.getData());
-//        } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
-//            Uri photoUri = FileProvider.getUriForFile(getActivity(),  getActivity().getApplicationContext().getPackageName() + ".provider", getCameraFile());
-//            uploadImage(photoUri);
-//        }
     }
 
     @Override
@@ -628,19 +610,16 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             ingScore[i]=ingredient[i];
 
         }
-        /////
+
         //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
         checkall.getImageIGall(ingredient, ingredient.length);
         ingScorelen = ingredient.length;
 
-        /////통계결과showdbscore부르기///
-        //ShowDBscore("scoreinput");
         return message;
     }
-    /////////////////////////////////
-    //효민
+
     public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
@@ -722,9 +701,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    /////////////////////////////////
-    //나린 //안드로이드 오류해결 확인
-    //나린
 
     public static class SkinTypeDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기.
 
@@ -734,7 +710,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         private static String DBType[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 추천/주의DB의 피부타입종류
 
         private static String checkIng[] = new String[100]; //비교결과[성분명]
-        //private static String checkEff[] = new String[200]; //비교결과[유해성분]
 
         public static int imageArrLength; //이미지 성분배열 길이 저장하는 변수.
         private static int dbArrLength; //데이터베이스 성분배열 길이 저장하는 변수.
@@ -753,13 +728,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //2. 데이터베이스에서 성분가져온걸 저장하는 함수.
         //resultNamesql, resultseffectsql, resultrolesql, len
         public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength){
-            //public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength, String RECorCARE){
             dbArrLength = dblength;
             for(int i=0;i<dbArrLength;i++){
                 DBIngredient[i] = dbIG[i];
                 DBType[i] = dbType[i];
-                //DBSEffect[i] = dbSE[i];
-                //DBRole[i] = dbRO[i];
             }
 
 
@@ -773,11 +745,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 for (int j = 0; j < dbArrLength; j++) {
                     //Log.v("디비전체출력: ", DBType[i]);
                     if(skintype.equals(DBType[i])) Log.v("타입일치 확인 if: ", DBType[j] + skintype);
-                    //if (imageIngredient[i].equals(DBIngredient[j]) && skintype.equals(DBType[i])) { //이미지, DB성분명 비교해서 문자열 배열에 저장
-                    //if (imageIngredient[i].equals(DBIngredient[j])) {
                     if(skintype.equals(DBType[j])){
                         //Log.v("출력출력111111: ", imageIngredient[i]+DBType[j]);
-                        //if(skintype.equals(DBType[j])){
                         if (imageIngredient[i].equals(DBIngredient[j])) {
                             //Log.v("출력출력출력: ", imageIngredient[i]);
                             checkIng[checkCount] = DBIngredient[j];
@@ -813,7 +782,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 Log.v("checkIng 초기화", "초기화"+i+": "+checkIng[i]);
                 checkIng[i]=null;
             }
-            ////
+
         }
     }
 
@@ -834,7 +803,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             db.insert("scoreinput", null, values);
         }
         Log.v("포문끝","확인");
-        //ShowDBscore("scoreinput");
     }
 
     public void CntScore(String[] nameing, int[] scoreing, int dblen){
@@ -875,7 +843,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
 
         int resultnum = (satisavg*100/len); //만족도높은 성분/전체 비율
-        //String result = String.format("%.2f", resultnum);
 
         ////성분이미지와 얼마나 일치하는지 비교
         //showRec("만족도가 높았던 화장품의 성분들이"+samenum+"일치해요!");
@@ -933,8 +900,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         builder.setTitle("사용자 맞춤추천");
         builder.setMessage(RecSentence);
 
-        //builder.setIcon(R.drawable.ic_dialog_alert);
-
         builder.setPositiveButton("확인했어요!", new DialogInterface.OnClickListener(){ //실행은 안됨(textview지저분)
             public void onClick(DialogInterface dialog, int which){
                 String message = "추천도를 확인했습니다";
@@ -945,6 +910,4 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         dialog.show();
 
     }
-
-    ////////////////////////////////
 }

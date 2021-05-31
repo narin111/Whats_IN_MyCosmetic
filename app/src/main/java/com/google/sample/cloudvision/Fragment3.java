@@ -100,7 +100,6 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 transaction.addToBackStack(null);
                 transaction.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
 
             case R.id.hong:
@@ -111,7 +110,6 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 transaction2.addToBackStack(null);
                 transaction2.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.heal:
                 Log.v("버튼 눌림","히알루론산");
@@ -122,128 +120,115 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 transaction3.addToBackStack(null);
                 transaction3.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.hoho:
                 Log.v("버튼 눌림","호호바오일");
                 keyIng="호호바오일";
 
                 FragmentTransaction transaction5 = getFragmentManager().beginTransaction();
-                transaction5.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction5.add(R.id.id_container_main3,fragment1);
                 transaction5.addToBackStack(null);
                 transaction5.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.butter:
                 Log.v("버튼 눌림","시어버터");
                 keyIng="시어버터";
 
                 FragmentTransaction transaction6 = getFragmentManager().beginTransaction();
-                transaction6.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction6.add(R.id.id_container_main3,fragment1);
                 transaction6.addToBackStack(null);
                 transaction6.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.oe:
                 Log.v("버튼 눌림","오이");
                 keyIng="오이";
 
                 FragmentTransaction transaction7 = getFragmentManager().beginTransaction();
-                transaction7.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction7.add(R.id.id_container_main3,fragment1);
                 transaction7.addToBackStack(null);
                 transaction7.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.green:
                 Log.v("버튼 눌림","녹차");
                 keyIng="녹차";
 
                 FragmentTransaction transaction8 = getFragmentManager().beginTransaction();
-                transaction8.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction8.add(R.id.id_container_main3,fragment1);
                 transaction8.addToBackStack(null);
                 transaction8.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.ttree:
                 Log.v("버튼 눌림","티트리");
                 keyIng="티트리";
 
                 FragmentTransaction transaction9 = getFragmentManager().beginTransaction();
-                transaction9.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction9.add(R.id.id_container_main3,fragment1);
                 transaction9.addToBackStack(null);
                 transaction9.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.aloe:
                 Log.v("버튼 눌림","알로에");
                 keyIng="알로에";
 
                 FragmentTransaction transaction10 = getFragmentManager().beginTransaction();
-                transaction10.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction10.add(R.id.id_container_main3,fragment1);
                 transaction10.addToBackStack(null);
                 transaction10.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.bp:
                 Log.v("버튼 눌림","병풀");
                 keyIng="병풀";
 
                 FragmentTransaction transaction11 = getFragmentManager().beginTransaction();
-                transaction11.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction11.add(R.id.id_container_main3,fragment1);
                 transaction11.addToBackStack(null);
                 transaction11.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.clg:
                 Log.v("버튼 눌림","콜라겐");
                 keyIng="콜라겐";
 
                 FragmentTransaction transaction12 = getFragmentManager().beginTransaction();
-                transaction12.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction12.add(R.id.id_container_main3,fragment1);
                 transaction12.addToBackStack(null);
                 transaction12.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.snail:
                 Log.v("버튼 눌림","달팽이");
                 keyIng="달팽이";
 
                 FragmentTransaction transaction13 = getFragmentManager().beginTransaction();
-                transaction13.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction13.add(R.id.id_container_main3,fragment1);
                 transaction13.addToBackStack(null);
                 transaction13.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.lemon:
                 Log.v("버튼 눌림","레몬");
                 keyIng="레몬";
-
                 FragmentTransaction transaction14 = getFragmentManager().beginTransaction();
-                transaction14.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction14.add(R.id.id_container_main3,fragment1);
                 transaction14.addToBackStack(null);
                 transaction14.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             case R.id.vi:
                 Log.v("버튼 눌림","비타민");
                 keyIng="비타민";
 
                 FragmentTransaction transaction15 = getFragmentManager().beginTransaction();
-                transaction15.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction15.add(R.id.id_container_main3,fragment1);
                 transaction15.addToBackStack(null);
                 transaction15.commit();
                 fragment1.crawlApiF(keyIng);
-                //Fragment3.java에서 버튼을 누를때 버튼의 글씨 내용을 Recommend.java에 보내줘야함.
                 break;
             default:
                 Log.v("onclick 에러", "에러");
