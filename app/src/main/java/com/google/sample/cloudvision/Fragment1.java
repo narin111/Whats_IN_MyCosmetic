@@ -706,7 +706,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 Log.v("유해성분", "없있");
                 for(int i=0;i<checkCount;i++) { //비교결과 로그출력.
                     Log.v("비교결과", "결과"+i+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]);
-                    textDB.append("결과"+(i+1)+": "+checkIng[i]+"-유해한 이유: "+checkEff[i]+", 역할: "+checkRol[i]+" \n");
+                    textDB.append("결과"+(i+1)+": "+checkIng[i]+"\n유해한 이유: "+checkEff[i]+"\n역할: "+checkRol[i]+" \n");
                 }
             }
 

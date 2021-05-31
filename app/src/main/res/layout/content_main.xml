@@ -48,7 +48,7 @@
                 android:id="@+id/textViewDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
+                android:textSize="15dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +90,8 @@
                 android:id="@+id/textskintype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/textdeco"/>
+                android:background="@drawable/textdeco"
+                android:textSize="15dp"/>
 
             <TextView
                 android:id="@+id/textViewCS"
