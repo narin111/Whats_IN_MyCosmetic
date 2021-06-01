@@ -96,7 +96,7 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 keyIng="꿀";
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction.add(R.id.id_container_main3,fragment1);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 fragment1.crawlApiF(keyIng);
@@ -106,7 +106,7 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 Log.v("버튼 눌림","홍삼");
                 keyIng="홍삼";
                 FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
-                transaction2.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction2.add(R.id.id_container_main3,fragment1);
                 transaction2.addToBackStack(null);
                 transaction2.commit();
                 fragment1.crawlApiF(keyIng);
@@ -116,7 +116,7 @@ public class Fragment3 extends Fragment implements View.OnClickListener{
                 keyIng="히알루론산";
 
                 FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
-                transaction3.add(R.id.id_container_main3,fragment1);//attach(fragment1);//replace(R.layout.content_main3, fragment1).commit();
+                transaction3.add(R.id.id_container_main3,fragment1);
                 transaction3.addToBackStack(null);
                 transaction3.commit();
                 fragment1.crawlApiF(keyIng);

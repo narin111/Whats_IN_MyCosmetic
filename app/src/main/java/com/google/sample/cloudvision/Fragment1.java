@@ -209,7 +209,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             len++;
         }
 
-        check2.getTypeDBIG(resNamesql, resTypesql, len); //public static void getTypeDBIG(String[] dbIG, String[] dbType, int dblength){
+        check2.getTypeDBIG(resNamesql, resTypesql, len);
 
         for(int i=0;i<len;i++) {
             //Log.v("showdbinfo_type", resTypesql[i] + ", "+resNamesql[i]);
@@ -618,7 +618,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         return message;
     }
 
-    public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기. //샘플코드.public?private?
+    public static class ingredientDBcheck{ //이미지 성분과 데이터베이스 성분들 비교하기.
         private static String imageIngredient[] = new String[100]; //유저의 사진에서 가져온 성분배열.[성분명]
 
         private static String DBIngredeint[] = new String[100]; //미리 생성해둔 데이터베이스에서 가져온 유해성분이나 알러지 배열.[성분명]
