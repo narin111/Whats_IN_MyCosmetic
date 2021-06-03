@@ -5,7 +5,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.google.sample.cloudvision"
+        applicationId "com.jbnu.in.whatsin"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

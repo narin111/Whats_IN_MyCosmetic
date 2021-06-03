@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jbnu.in.whatsin.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {

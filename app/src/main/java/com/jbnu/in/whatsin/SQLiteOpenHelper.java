@@ -1,4 +1,4 @@
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 //public class SQLiteOpenHelper {
 //}

@@ -1,4 +1,4 @@
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

@@ -14,36 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.jbnu.in.whatsin.R;
 
 
 public class Fragment3 extends Fragment implements View.OnClickListener{

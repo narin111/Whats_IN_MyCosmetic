@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 import android.content.ContentValues;
 import android.content.res.AssetManager;
@@ -22,17 +22,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.jbnu.in.whatsin.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,7 +56,7 @@ public class Fragment2 extends Fragment implements View.OnClickListener {
     private static TextView textViewDB;
 
     //View v = inflater.inflate(R.layout.fragment1, container, false);
-    public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
+    public static final String ROOT_DIR = "/data/data/com.jbnu.in.whatsin/databases/";
 
     public static void setDB(Fragment2 ctx, String fileDB) {
         File folder = new File(ROOT_DIR);

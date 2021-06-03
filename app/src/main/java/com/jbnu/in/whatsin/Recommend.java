@@ -1,4 +1,4 @@
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
+import com.jbnu.in.whatsin.R;
 
-import static com.google.sample.cloudvision.ApiExamSearchShop.CosmeticList;
+import static com.jbnu.in.whatsin.ApiExamSearchShop.CosmeticList;
 
 
 

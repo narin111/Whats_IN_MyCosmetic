@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.sample.cloudvision;
+package com.jbnu.in.whatsin;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -62,6 +62,7 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+import com.jbnu.in.whatsin.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -71,11 +72,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.sample.cloudvision.Fragment2.checkall;
 
 
 public class Fragment1 extends Fragment implements View.OnClickListener {
@@ -106,7 +105,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     private static TextView textDB;
     private static TextView textskintype;
 
-    public static final String ROOT_DIR = "/data/data/com.google.sample.cloudvision/databases/";
+    public static final String ROOT_DIR = "/data/data/com.jbnu.in.whatsin/databases/";
     public static void setDB(Fragment1 ctx, String fileDB) {
         File folder = new File(ROOT_DIR);
         if(folder.exists()) {
@@ -612,7 +611,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         //////ingredeint 배열에 성분단어 자른거 ingredientDBcheck 클래스에 보내기.
         check1.getImageIG(ingredient, ingredient.length);
         check2.getImageIG(ingredient, ingredient.length);
-        checkall.getImageIGall(ingredient, ingredient.length);
+        Fragment2.checkall.getImageIGall(ingredient, ingredient.length);
         ingScorelen = ingredient.length;
 
         return message;
