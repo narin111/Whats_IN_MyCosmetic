@@ -8,7 +8,7 @@
 ![image](https://user-images.githubusercontent.com/43459698/147867630-0c5ce7a7-1d5f-42a6-a8cb-1531865bbfcb.png)
 
 - 유해성분, 피부타입별 성분 안내   
-![image](https://user-images.githubusercontent.com/43459698/147867637-85f98b4a-a091-4b26-b87a-87d617525784.png)
+<img src="https://user-images.githubusercontent.com/43459698/147867637-85f98b4a-a091-4b26-b87a-87d617525784.png  width="200" height="400"/>
 
 - 만족도/일치도   
 ![image](https://user-images.githubusercontent.com/43459698/147867667-46e4011c-1857-4658-b561-2c0218ca2837.png)
